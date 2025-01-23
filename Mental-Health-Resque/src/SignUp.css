@@ -1,0 +1,94 @@
+.container {
+    font-family: Arial, sans-serif;
+    background-color: #e0f7fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Full viewport height */
+    margin: 0;
+    padding: 5px; /* Padding to prevent overflow on small screens */
+    box-sizing: border-box; /* Ensures padding does not affect layout */
+  }
+  
+  /* Form Container */
+  .form-container {
+    background-color: #b2f2b2;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Full width */
+    max-width: 500px; /* Max width of the form */
+    box-sizing: border-box; /* Ensures padding doesn't affect width */
+    display: flex;
+    flex-direction: column;
+    height:110%
+   /* min-height: 300; /* Minimum height to prevent it from being too small */
+  }
+  
+  .form-container h2 {
+    text-align: center;
+    color: #333;
+    font-size: 24px; /* Make the title responsive */
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+  
+  /* Input Group */
+  .input-group {
+    margin-bottom: 20px;
+  }
+  
+  .input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .input-group input,
+  .input-group select {
+    width: 100%;
+    padding: 10px; /* Increased padding for better touch target */
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 15px;
+    box-sizing: border-box; /* Ensures padding doesn't affect width */
+  }
+  
+  /*.input-group input[type="number"] {
+    -moz-appearance: textfield;
+  }
+  
+  .input-group input[type="number"]::-webkit-outer-spin-button,
+  .input-group input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  */
+  /* Submit Button */
+  .submit-button {
+    background-color: #66bb6a;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .submit-button:hover {
+    background-color: #81c784;
+  }
+  
+  /* Error Messages */
+  .error {
+    color: red;
+    font-size: 12px;
+    margin-top: -10px;
+  }
+  
+ 
+ 
