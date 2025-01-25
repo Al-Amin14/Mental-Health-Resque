@@ -10,10 +10,9 @@ body {
   box-sizing: border-box;
 }
 
-
 .container {
-  width: 100%;
   width: 100%; 
+  max-width: 500px; 
   background-color: #ffffff;
   padding: 40px;
   border-radius: 12px;
@@ -23,7 +22,6 @@ body {
   flex-direction: column;
   text-align: center;
 }
-
 
 .form-container h2 {
   font-size: 2.5rem;
@@ -93,4 +91,21 @@ body {
 
 .submit-button:active {
   background-color: #388e3c;
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.login-link-text {
+  color: #388e3c;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.login-link-text:hover {
+  color: #66bb6a;
+  text-decoration: underline;
 }
