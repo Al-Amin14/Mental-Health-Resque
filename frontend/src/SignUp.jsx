@@ -8,7 +8,7 @@ function SignUp() {
     gender: '',
     age: '',
     password: '',
-    role: '',  // New state for role
+    role: '',  
   });
 
   const [errors, setErrors] = useState({
@@ -162,7 +162,7 @@ function SignUp() {
             {errors.password && <p className="error">{errors.password}</p>}
           </div>
 
-          {/* New Role Selection */}
+         
           <div className="input-group">
             <label htmlFor="role">Role</label>
             <select
@@ -173,13 +173,18 @@ function SignUp() {
             >
               <option value="">--Select Role--</option>
               <option value="Instructor">Instructor</option>
-              <option value="Clinet">Client</option>
+              <option value="Client">Client</option>
             </select>
             {errors.role && <p className="error">{errors.role}</p>}
           </div>
 
           <button type="submit" className="submit-button">Sign Up</button>
         </form>
+
+        
+        <div className="login-link">
+          <p>Already have an account? <a href="/login" className="login-link-text">Log in here</a></p>
+        </div>
       </div>
     </div>
   );
