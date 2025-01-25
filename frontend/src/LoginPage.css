@@ -84,3 +84,20 @@ body {
 .submit-btn:active {
   background-color: #388e3c; 
 }
+.signup-text {
+  font-size: 14px;
+}
+
+.signup-link {
+  color: #388e3c; 
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.signup-link:hover {
+  color: #66bb6a; 
+  text-decoration: underline;
+}
+
+
