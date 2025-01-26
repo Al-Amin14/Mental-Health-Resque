@@ -1,71 +1,61 @@
-import React from 'react'
-import { FaLeaf } from "react-icons/fa6";
-import { GiHiveMind } from "react-icons/gi";  
-import { MdFamilyRestroom } from "react-icons/md";
-import { FaBookOpen } from "react-icons/fa";
-import { HiMiniBellAlert } from "react-icons/hi2";
-import { FaUserDoctor } from "react-icons/fa6";
-import { FaUsers } from "react-icons/fa6";
-import { FaHandsHelping } from "react-icons/fa";
+import React from 'react';
+import './activity.css'; 
 
-const Activity = () => {
+function WellBeing() {
   return (
-    <div className=" w-full flex flex-col justify-center items-center">
-            <div className="flex flex-col justify-center items-center gap-10 mt-28" >
-                <FaLeaf className='w-[30%] h-[30%] text-green-900 drop-shadow-[0_35px_35px_rgba(26,77,23,0.77)]' />
-                <div>
-                    <p className="flex mt-3 font-bold text-6xl justify-center items-center gap-4 ">Be <p className="text-green-600">Mentally</p> Feat</p>
-                    <p className="flex mt-3 font-bold text-6xl justify-center items-center gap-4">Be <p className="text-green-600">Menatally</p> Free</p>
-                    <p className="flex mt-3 font-bold text-6xl justify-center items-center gap-4">Be <p className="text-green-600">Safe</p></p>
-                </div> 
-                <div className="flex flex-col items-center justify-center">
-                  <div className="font-semibold text-xl">
-                    Join our communitry and keep your free from mental diseases. Have a great life in your future</div>
-                  <div className="mt-5">
-                    <button className="font-semibold bg-green-600 p-4 text-2xl rounded-full hover:border-black hover:border-2"  >Get started</button>
-                  </div>
-                </div>
-            </div>
-            <div className="w-full flex justify-around items-center mt-9">
-                <div className="bg-slate-200 rounded-xl p-7 w-[20%] h-[200px] font-bold flex flex-col justify-center items-center gap-4">
-                <GiHiveMind className='w-14 h-14 drop-shadow-[0_35px_35px_rgba(26,77,23,0.77)] text-green-600 font-bold' />
-                  <p>Practice Mindfulness and Relaxation</p>
-                </div>
-                <div className="bg-slate-200 rounded-xl p-7 w-[20%] h-[200px] font-bold flex flex-col justify-center items-center gap-4">
-                <MdFamilyRestroom className='w-14 h-14 drop-shadow-[0_35px_35px_rgba(26,77,23,0.77)] text-green-600 font-bold' />
-                  <p>Stay Connected with your family and friends</p>
-                </div>
-                <div className="bg-slate-200 rounded-xl p-7 w-[20%] h-[200px] font-bold flex flex-col justify-center items-center gap-4">
-                <FaBookOpen className='w-14 h-14 drop-shadow-[0_35px_35px_rgba(26,77,23,0.77)] text-green-600 font-bold' />
-                  <p >Prioritize Sleep and Routine</p>
-                </div>
-            </div>
-            <div className="p-10 w-full count">
-    
-            <div className="flex flex-col justify-center items-center w-full bg-gray-300 rounded-xl mt-10 p-6">
-              <div className="font-extrabold text-4xl">Our Impact</div>
-              <div className="w-full flex justify-around items-center mt-9">
-                <div className="bg-slate-200 rounded-xl p-7 w-[20%] h-[200px] font-bold flex flex-col justify-center items-center gap-4">
-                <HiMiniBellAlert className='w-14 h-14 drop-shadow-[0_35px_35px_rgba(26,77,23,0.77)] text-green-600 font-bold' />
-                  <p>Total report count</p>
-                </div>
-                <div className="bg-slate-200 rounded-xl p-7 w-[20%] h-[200px] font-bold flex flex-col justify-center items-center gap-4">
-                <FaUsers className='w-14 h-14 drop-shadow-[0_35px_35px_rgba(26,77,23,0.77)] text-green-600 font-bold' />
-                  <p>Total Uses count</p>
-                </div>
-                <div className="bg-slate-200 rounded-xl p-7 w-[20%] h-[200px] font-bold flex flex-col justify-center items-center gap-4">
-                <FaUserDoctor className='w-14 h-14 drop-shadow-[0_35px_35px_rgba(26,77,23,0.77)] text-green-600 font-bold' />
-                  <p>total physologist count</p>
-                </div>
-                <div className="bg-slate-200 rounded-xl p-7 w-[20%] h-[200px] font-bold flex flex-col justify-center items-center gap-4">
-                <FaHandsHelping className='w-14 h-14 drop-shadow-[0_35px_35px_rgba(26,77,23,0.77)] text-green-600 font-bold' />
-                  <p >Benefited count</p>
-                </div>
-            </div>
-            </div>
-            </div>
+    <div className='flex justify-center w-full '>
+
+    <div className="containers w-full">
+      <header className="header">
+        <h1>Well-Being Activities</h1>
+        <p>Take a moment for yourself with calming activities for mind and body.</p>
+      </header>
+
+      <section className="activity-section">
+        <div className="activity-card">
+          <h2>Meditation</h2>
+          <p>Focus your mind and relieve stress with guided meditation sessions.</p>
+          <button className="activity-btn">Start Meditation</button>
         </div>
-  )
+        <div className="activity-card">
+          <h2>Self-Care</h2>
+          <p>Relax and rejuvenate with self-care tips and routines.</p>
+          <button className="activity-btn">Start Self-Care</button>
+        </div>
+      </section>
+
+      <section className="activity-section">
+        <div className="activity-card">
+          <h2>Breathing Exercises</h2>
+          <p>Practice simple breathing techniques to calm your mind and body.</p>
+          <button className="activity-btn">Start Breathing</button>
+        </div>
+        <div className="activity-card">
+          <h2>Journaling</h2>
+          <p>Reflect and write about your thoughts and feelings to clear your mind.</p>
+          <button className="activity-btn">Start Journaling</button>
+        </div>
+      </section>
+
+      <section className="activity-section">
+        <div className="activity-card">
+          <h2>Healthy Recipes</h2>
+          <p>Explore delicious and nutritious recipes to nourish your body.</p>
+          <button className="activity-btn">Get Recipes</button>
+        </div>
+        <div className="activity-card">
+          <h2>Exercise Tips</h2>
+          <p>Try simple exercises or stretches to boost your mood and energy.</p>
+          <button className="activity-btn">Get Exercise Tips</button>
+        </div>
+      </section>
+
+      <footer className="footer">
+        <p className='font-bold'>Well-Being is about taking care of yourself. Prioritize mental and physical health!</p>
+      </footer>
+    </div>
+    </div>
+  );
 }
 
-export default Activity
+export default WellBeing;

@@ -10,56 +10,56 @@ import { FaHandsHelping } from "react-icons/fa";
 
 const Home = () => {
   return (
-    <div className=" w-full flex flex-col justify-center items-center">
-        <div className="flex flex-col justify-center items-center gap-10 mt-28" >
+    <div className=" w-[100%] max-[640px]:text-xs flex flex-col justify-center items-center">
+        <div className="flex flex-col justify-center items-center gap-10 mt-0" >
             <FaLeaf className='w-[30%] h-[30%] text-green-900 drop-shadow-[0_35px_35px_rgba(26,77,23,0.77)]' />
-            <div>
-                <p className="flex mt-3 font-bold text-6xl justify-center items-center gap-4 ">Be <p className="text-green-600">Mentally</p> Feat</p>
-                <p className="flex mt-3 font-bold text-6xl justify-center items-center gap-4">Be <p className="text-green-600">Menatally</p> Free</p>
-                <p className="flex mt-3 font-bold text-6xl justify-center items-center gap-4">Be <p className="text-green-600">Safe</p></p>
+            <div> 
+                <p className="max-[640px]:text-xl flex mt-1 font-bold text-6xl justify-center items-center gap-4 ">Be <p className="text-green-600">Mentally</p> Feat</p>
+                <p className="max-[640px]:text-xl flex mt-3 font-bold text-6xl justify-center items-center gap-4">Be <p className="text-green-600">Menatally</p> Free</p>
+                <p className="max-[640px]:text-xl flex mt-3 font-bold text-6xl justify-center items-center gap-4">Be <p className="text-green-600">Safe</p></p>
             </div> 
             <div className="flex flex-col items-center justify-center">
-              <div className="font-semibold text-xl">
+              <div className="max-[640px]:text-xs font-semibold text-xl mx-[10%]">
                 Join our communitry and keep your free from mental diseases. Have a great life in your future</div>
               <div className="mt-5">
-                <button className="font-semibold bg-green-600 p-4 text-2xl rounded-full hover:border-black hover:border-2"  >Get started</button>
+                <button className="max-[640px]:text-xs font-semibold bg-green-600 p-4 text-2xl rounded-full hover:border-black hover:border-2"  >Get started</button>
               </div>
             </div>
         </div>
         <div className="w-full flex justify-around items-center mt-9">
-            <div className="bg-slate-200 shadow-green-500 shadow-lg rounded-xl p-7 w-[20%] h-[200px] font-bold flex flex-col justify-center items-center gap-4">
-            <GiHiveMind className='w-14 h-14 drop-shadow-[0_35px_35px_rgba(26,77,23,0.77)] text-green-600 font-bold' />
-              <p>Practice Mindfulness and Relaxation</p>
+            <div className="max-[640px]:w-[30%] bg-slate-200 shadow-green-500 shadow-lg rounded-xl p-7 w-[20%] h-[200px] font-bold flex flex-col justify-center items-center gap-4">
+            <GiHiveMind className='max-[640px]:text-xs max-[640px]:w-7 w-14 h-14 drop-shadow-[0_35px_35px_rgba(26,77,23,0.77)] text-green-600 font-bold' />
+              <p className="max-[640px]:text-xs">Practice Mindfulness and Relaxation</p>
             </div>
-            <div className="bg-slate-200 shadow-green-500 shadow-lg rounded-xl p-7 w-[20%] h-[200px] font-bold flex flex-col justify-center items-center gap-4">
-            <MdFamilyRestroom className='w-14 h-14 drop-shadow-[0_35px_35px_rgba(26,77,23,0.77)] text-green-600 font-bold' />
-              <p>Stay Connected with your family and friends</p>
+            <div className=" max-[640px]:w-[30%] bg-slate-200 shadow-green-500 shadow-lg rounded-xl p-7 w-[20%] h-[200px] font-bold flex flex-col justify-center items-center gap-4">
+            <MdFamilyRestroom className='max-[640px]:w-7 w-14 h-14 drop-shadow-[0_35px_35px_rgba(26,77,23,0.77)] text-green-600 font-bold' />
+              <p className="max-[640px]:10px">Stay Connected with your family and friends</p>
             </div>
-            <div className="bg-slate-200 shadow-lg shadow-green-500 rounded-xl p-7 w-[20%] h-[200px] font-bold flex flex-col justify-center items-center gap-4">
-            <FaBookOpen className='w-14 h-14 drop-shadow-[0_35px_35px_rgba(26,77,23,0.77)] text-green-600 font-bold' />
-              <p >Prioritize Sleep and Routine</p>
+            <div className="max-[640px]:w-[30%] bg-slate-200 shadow-lg shadow-green-500 rounded-xl p-7 w-[20%] h-[200px] font-bold flex flex-col justify-center items-center gap-4">
+            <FaBookOpen className='max-[640px]:w-7 w-14 h-14 drop-shadow-[0_35px_35px_rgba(26,77,23,0.77)] text-green-600 font-bold' />
+              <p className="max-[640px]:text-xs ">Prioritize Sleep and Routine</p>
             </div>
         </div>
         <div className="p-10 w-full count">
 
-        <div className="flex flex-col justify-center items-center w-full bg-gray-300 rounded-xl mt-10 p-6">
-          <div className="font-extrabold text-4xl">Our Impact</div>
-          <div className="w-full flex justify-around items-center mt-9">
-            <div className="bg-slate-200 rounded-xl p-7 w-[20%] h-[200px] font-bold flex flex-col justify-center items-center gap-4">
-            <HiMiniBellAlert className='w-14 h-14 drop-shadow-[0_35px_35px_rgba(26,77,23,0.77)] text-green-600 font-bold' />
-              <p>Total report count</p>
+        <div className="flex flex-col justify-center items-center w-full bg-gray-300 rounded-xl mt-10 p-6 max-[640px]:p-1">
+          <div className="font-extrabold text-4xl max-[640px]:text-2xl">Our Impact</div>
+          <div className="w-full flex justify-around max-[640px]:justify-between items-center mt-9 max-[640px]:mt-3">
+            <div className="bg-slate-200 rounded-xl p-7 max-[640px]:h-[150px]  w-[20%] h-[200px] font-bold flex flex-col justify-center items-center gap-4">
+            <HiMiniBellAlert className='max-[640px]:w-5 w-14 h-14 drop-shadow-[0_35px_35px_rgba(26,77,23,0.77)] text-green-600 font-bold' />
+              <p className="max-[640px]:text-xs">Total report count</p>
             </div>
-            <div className="bg-slate-200 rounded-xl p-7 w-[20%] h-[200px] font-bold flex flex-col justify-center items-center gap-4">
-            <FaUsers className='w-14 h-14 drop-shadow-[0_35px_35px_rgba(26,77,23,0.77)] text-green-600 font-bold' />
-              <p>Total Uses count</p>
+            <div className="max-[640px]:h-[150px] bg-slate-200 rounded-xl p-7 w-[20%] h-[200px] font-bold flex flex-col justify-center items-center gap-4">
+            <FaUsers className='max-[640px]:w-5 w-14 h-14 drop-shadow-[0_35px_35px_rgba(26,77,23,0.77)] text-green-600 font-bold' />
+              <p className="max-[640px]:text-xs">Total Uses count</p>
             </div>
-            <div className="bg-slate-200 rounded-xl p-7 w-[20%] h-[200px] font-bold flex flex-col justify-center items-center gap-4">
-            <FaUserDoctor className='w-14 h-14 drop-shadow-[0_35px_35px_rgba(26,77,23,0.77)] text-green-600 font-bold' />
-              <p>total physologist count</p>
+            <div className="max-[640px]:h-[150px] bg-slate-200 rounded-xl p-7 w-[20%] h-[200px] font-bold flex flex-col justify-center items-center gap-4">
+            <FaUserDoctor className='max-[640px]:w-5 w-14 h-14 drop-shadow-[0_35px_35px_rgba(26,77,23,0.77)] text-green-600 font-bold' />
+              <p className="max-[640px]:text-xs" >total physologist count</p>
             </div>
-            <div className="bg-slate-200 rounded-xl p-7 w-[20%] h-[200px] font-bold flex flex-col justify-center items-center gap-4">
-            <FaHandsHelping className='w-14 h-14 drop-shadow-[0_35px_35px_rgba(26,77,23,0.77)] text-green-600 font-bold' />
-              <p >Benefited count</p>
+            <div className="max-[640px]:h-[150px] bg-slate-200 rounded-xl p-7 w-[20%] h-[200px] font-bold flex flex-col justify-center items-center gap-4">
+            <FaHandsHelping className='max-[640px]:w-5 w-14 h-14 drop-shadow-[0_35px_35px_rgba(26,77,23,0.77)] text-green-600 font-bold' />
+              <p className="max-[640px]:text-xs" >Benefited count</p>
             </div>
         </div>
         </div>
