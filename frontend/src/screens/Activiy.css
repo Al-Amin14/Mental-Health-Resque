@@ -96,5 +96,65 @@
     color: white;
     font-size: 18px;
   }
-
+@media (max-width: 600px) {
+    .header h1 {
+      font-size: 28px;
+    }
+  
+    .header p {
+      font-size: 16px;
+    }
+  
+    .activity-section {
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+  
+    .activity-card {
+      width: 90%;
+      padding: 15px;
+    }
+  
+    .activity-card h2 {
+      font-size: 20px;
+    }
+  
+    .activity-card p {
+      font-size: 14px;
+    }
+  
+    .activity-btn {
+      font-size: 14px;
+      padding: 10px 18px;
+    }
+  
+    .footer p {
+      font-size: 16px;
+    }
+  }
+  
+  @media (max-width: 900px) {
+    .header h1 {
+      font-size: 32px;
+    }
+  
+    .header p {
+      font-size: 17px;
+    }
+  
+    .activity-card {
+      width: 40%;
+      padding: 18px;
+    }
+  
+    .activity-btn {
+      font-size: 15px;
+      padding: 11px 19px;
+    }
+  
+    .footer p {
+      font-size: 17px;
+    }
+  }
   
