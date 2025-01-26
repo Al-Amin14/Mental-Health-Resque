@@ -1,0 +1,100 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #e8f5e9;
+    color: #333;
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  
+  .header {
+    text-align: center;
+    padding: 20px;
+    background-color: #81c784;
+    border-radius: 10px;
+    width: 100%;
+    margin-bottom: 30px;
+  }
+  
+  .header h1 {
+    color: #ffffff;
+    font-size: 36px;
+    font-weight: bold;
+  }
+  
+  .header p {
+    color: #ffffff;
+    font-size: 18px;
+    margin-top: 10px;
+  }
+  
+  .activity-section {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 30px;
+  }
+  
+  .activity-card {
+    background-color: #a5d6a7; 
+    padding: 20px;
+    border-radius: 10px;
+    width: 250px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .activity-card h2 {
+    color: #2c6e49;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  
+  .activity-card p {
+    color: #333;
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .activity-btn {
+    background-color: #66bb6a; 
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .activity-btn:hover {
+    background-color: #81c784; 
+  }
+  
+  .footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #81c784; 
+    border-radius: 10px;
+    width: 100%;
+  }
+  
+  .footer p {
+    color: white;
+    font-size: 18px;
+  }
+
+  
