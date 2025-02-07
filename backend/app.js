@@ -5,6 +5,7 @@ const port = 3000
 const bodyParse= require('body-parser')
 const dotnev=require('dotenv')
 dotnev.config()
+
 const mongoose=require('mongoose')
 const auth=require('./routes/auth.js')  
 const checkUser=require('./routes/UserCheck.js')

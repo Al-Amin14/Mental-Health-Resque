@@ -43,25 +43,31 @@ routes.post('/singup',async (req,res)=>{
 ),
 
 
-routes.get('/singin',async (req,res)=>{
+routes.post('/singin',async (req,res)=>{
 
     const {email,password}= req.body
 
-    users.findOne({email:email}).then(saveUsers=>{
-        if(!saveUsers){
-            res.status(422).json({error:"Enter valid email"})
+    if(!email || !password){
+        res.status(422).json({error:"Enter all full details"})
+    }else{
+
+        users.findOne({email:email}).then(saveUsers=>{
+            if(!saveUsers){
+                res.status(422).json({error:"Enter valid email"})
         }else{
             bcrypt.compare(password,saveUsers.password).then(match=>{
                 if(match){  
                     const token=jwt.sign({_id:saveUsers.id},process.env.jwt_secret)
                     const {_id}=saveUsers
-                    res.json({token,_id})
+                    const success="Successfully Loged in"
+                    res.json({token,_id,success})
                 }else{
                     res.status(422).json({error:"Invalid Password"})
                 }
             })
         }
     })
+            }
 
 })
 

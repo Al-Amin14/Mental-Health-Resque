@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 
 const SideBar = () => {
   return (
-    <div className='w-full max-[640px]:text-xs h-full flex flex-col justify-baseline items-center gap-4 sm:gap-5 pt-20 sm:pt-32 font-bold text-base sm:text-lg md:text-xl overflow-y-auto px-4 sm:px-8'>
+    <div className=' w-full transition max-[640px]:text-xs h-full flex flex-col justify-baseline items-center gap-4 sm:gap-5 pt-20 sm:pt-32 font-bold text-base sm:text-lg md:text-xl overflow-y-auto px-4 sm:px-8'>
       <div className='w-full'>
         <ul className='cursor-pointer flex gap-3 sm:gap-4 justify-start w-full items-center'>
           <li><FaHome className="text-sm sm:text-base md:text-lg" /></li>

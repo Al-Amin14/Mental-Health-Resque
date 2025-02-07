@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './signup.css';
 import { useNavigate } from "react-router-dom";
+import {toast} from 'react-toastify'
 
 function SignUp() {
 
@@ -80,11 +81,32 @@ function SignUp() {
     return isValid;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (validateForm()) {
-      alert('Form submitted successfully!');
+      console.log("jkljsldkjkls")
+      await fetch('http://localhost:3000/singup',{
+        method:"post",
+        headers:{
+          "Content-Type":"application/json",
+        },
+        body:JSON.stringify({
+          fullname:formData.name,
+          email:formData.email,
+          gender:formData.gender,
+          age:formData.age,
+          password:formData.password,
+          role:formData.role,
+        })
+      }).then(res=>res.json()).then(result=>{
+            if(result.error){
+              toast.error(result.error)
+            }else{
+              navigate('/login')
+              toast.success(result.success)
+            }
+      })
+        
     }
   };
 

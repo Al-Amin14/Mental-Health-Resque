@@ -1,7 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import './activity.css'; 
 
 function WellBeing() {
+
+  const navigate=useNavigate();
+  
+
+  useEffect(() => {
+
+    const token=localStorage.getItem('jwt')
+    if(!token){
+      navigate("/login")
+    }
+
+  }, []);
+
   return (
     <div className='flex justify-center w-full '>
 

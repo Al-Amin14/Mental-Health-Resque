@@ -1,7 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const ReportPage = () => {
   const [condition, setCondition] = useState("");
+  const navigate=useNavigate()
+
+   
+  useEffect(()=>{
+    
+    const token=localStorage.getItem('jwt')
+    if(!token){
+      navigate('/login')
+    }
+
+  },[])
+
 
   const handleSubmit = () => {
     if (condition.length<=0) {

@@ -1,6 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Education= () => {
+  const navigate=useNavigate()
+
+  useEffect(() => {
+    const token=localStorage.getItem('jwt')
+    if(!token){
+      navigate('/login')
+    }
+  }, []);
+
   const resources = [
     { id: 1, title: "Managing Anxiety", description: "Learn practical tips to manage anxiety.", link: "#" },
     { id: 2, title: "Coping with Depression", description: "Resources to help you understand and cope with depression.", link: "#" },

@@ -1,6 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const PhyschologistDirectory = () => {
+
+  const navigate=useNavigate()
+
+
+  useEffect(() => {
+    const token=localStorage.getItem('jwt')
+
+    if(!token){
+      navigate('/login')
+    }
+
+  }, []);
+
   const [searchQuery, setSearchQuery] = useState("");
 
   const Physchologists = [

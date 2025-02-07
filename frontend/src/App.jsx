@@ -10,8 +10,13 @@ import Education from './screens/resourceshub';
 import Report from './screens/report';
 import LoginPage from './screens/login';
 import SignUp from './screens/signup';
+import { ToastContainer } from 'react-toastify'
+import { loginContext } from './contex/logincontext';
+
 
 function App() {
+
+  const [loged, setLoged] = useState(false);
   const [slideShow, setSlideShow] = useState(true);
 
   const toggleing=()=>{
@@ -25,12 +30,16 @@ function App() {
   return (
     <BrowserRouter>
       <div>
+
+        <loginContext.Provider value={{loged,setLoged}} >
+
+
         <Navbar toggleing={toggleing} />
         <div className='flex w-[100%] h-auto'>
           {
             slideShow &&
           (<div className='w-[20%] bg-slate-200 h-auto flex justify-center items-start'>
-            <SideBar />
+            <SideBar  />
           </div>)
           }
             {slideShow ? (<div className='h-auto bg-gray-100 w-[80%] '> <Routes>
@@ -54,6 +63,8 @@ function App() {
           </div>)}
             
         </div>
+        <ToastContainer theme='dark' position='top-center' autoClose={2000} />
+        </loginContext.Provider>
       </div>
     </BrowserRouter>
   )
