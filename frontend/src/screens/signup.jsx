@@ -85,7 +85,7 @@ function SignUp() {
     e.preventDefault();
     if (validateForm()) {
       console.log("jkljsldkjkls")
-      await fetch('http://localhost:3000/singup',{
+      await fetch('http://localhost:3003/singup',{
         method:"post",
         headers:{
           "Content-Type":"application/json",

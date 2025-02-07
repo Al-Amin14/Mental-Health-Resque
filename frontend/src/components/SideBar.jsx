@@ -43,7 +43,7 @@ const SideBar = () => {
       <div className='w-full'>
         <ul className='cursor-pointer flex gap-3 sm:gap-4 justify-start w-full items-center'>
           <li><IoMdChatboxes className="text-sm sm:text-base md:text-lg" /></li>
-          <li ><Link to='/Activity'>Chat List</Link></li>
+          <li ><Link to='/chat'>Chat List</Link></li>
         </ul>
       </div>
     </div>

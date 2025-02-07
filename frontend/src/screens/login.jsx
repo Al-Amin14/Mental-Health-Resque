@@ -23,7 +23,7 @@ const LoginPage = () => {
   const loginHandle=()=>{
     
     if(email.length>4 && password.length>6){
-      fetch('http://localhost:3000/singin',{
+      fetch('http://localhost:3003/singin',{
         method:"POST",
         headers:{
           "Content-Type":"application/json",

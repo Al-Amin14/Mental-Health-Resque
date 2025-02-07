@@ -10,6 +10,7 @@ import Education from './screens/resourceshub';
 import Report from './screens/report';
 import LoginPage from './screens/login';
 import SignUp from './screens/signup';
+import Chat from './screens/chat';
 import { ToastContainer } from 'react-toastify'
 import { loginContext } from './contex/logincontext';
 
@@ -50,6 +51,7 @@ function App() {
               <Route path="/Report" element={<Report/>} ></Route>
               <Route path='/login' element={<LoginPage/>}> </Route>
               <Route path='/signup' element={<SignUp/>}></Route>
+              <Route path='/chat' element={<Chat/>}>  </Route>
             </Routes>
           </div>): (<div className='h-auto bg-gray-100 w-[100%] '> <Routes>
               <Route path="/" element={<Home/>} ></Route>
@@ -59,6 +61,7 @@ function App() {
               <Route path="/Report" element={<Report/>} ></Route>
               <Route path='/login' element={<LoginPage/>}> </Route>
               <Route path='/signup' element={<SignUp/>}></Route>
+              <Route path='/chat' element={<Chat/>}>  </Route>
             </Routes>
           </div>)}
             
