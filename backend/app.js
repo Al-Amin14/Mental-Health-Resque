@@ -1,5 +1,7 @@
 const express = require('express')
 const app = express()
+const reportRoutes = require('./routes/report.js');
+
 const port = 3003
 
 const bodyParse= require('body-parser')
@@ -9,7 +11,6 @@ dotnev.config()
 const mongoose=require('mongoose')
 const auth=require('./routes/auth.js')  
 const checkUser=require('./routes/UserCheck.js')
-const chatapis=require('./routes/chatapis.js')
 const cors=require('cors')
   
 mongoose.connect(process.env.Mongo_Url);
@@ -27,7 +28,8 @@ app.use(bodyParse.urlencoded({extended:true}))
 app.use(bodyParse.json())
 app.use('',auth)
 app.use('',checkUser)
-app.use('',chatapis)
+app.use('', reportRoutes);
+
 
 
 app.get('/', (req, res) => {
