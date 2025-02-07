@@ -9,6 +9,7 @@ dotnev.config()
 const mongoose=require('mongoose')
 const auth=require('./routes/auth.js')  
 const checkUser=require('./routes/UserCheck.js')
+const chatapis=require('./routes/chatapis.js')
 const cors=require('cors')
   
 mongoose.connect(process.env.Mongo_Url);
@@ -26,6 +27,7 @@ app.use(bodyParse.urlencoded({extended:true}))
 app.use(bodyParse.json())
 app.use('',auth)
 app.use('',checkUser)
+app.use('',chatapis)
 
 
 app.get('/', (req, res) => {
