@@ -11,6 +11,7 @@ import Report from './screens/report';
 import LoginPage from './screens/login';
 import SignUp from './screens/signup';
 import Chat from './screens/chat';
+import ChatList from './screens/chatlist'
 import { ToastContainer } from 'react-toastify'
 import { loginContext } from './contex/logincontext';
 
@@ -19,6 +20,7 @@ function App() {
 
   const [loged, setLoged] = useState(false);
   const [slideShow, setSlideShow] = useState(true);
+  const [tochatlist, setTochatlist] = useState(false);
 
   const toggleing=()=>{
     if(slideShow){
@@ -32,7 +34,7 @@ function App() {
     <BrowserRouter>
       <div>
 
-        <loginContext.Provider value={{loged,setLoged}} >
+        <loginContext.Provider value={{loged,setLoged,tochatlist,setTochatlist}} >
 
 
         <Navbar toggleing={toggleing} />
@@ -52,6 +54,7 @@ function App() {
               <Route path='/login' element={<LoginPage/>}> </Route>
               <Route path='/signup' element={<SignUp/>}></Route>
               <Route path='/chat' element={<Chat/>}>  </Route>
+              <Route path='/chatlist' element={<ChatList/>} ></Route>
             </Routes>
           </div>): (<div className='h-auto bg-gray-100 w-[100%] '> <Routes>
               <Route path="/" element={<Home/>} ></Route>
@@ -62,6 +65,8 @@ function App() {
               <Route path='/login' element={<LoginPage/>}> </Route>
               <Route path='/signup' element={<SignUp/>}></Route>
               <Route path='/chat' element={<Chat/>}>  </Route>
+              <Route path='/chatlist' element={<ChatList/>} ></Route>
+              
             </Routes>
           </div>)}
             

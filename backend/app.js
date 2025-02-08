@@ -11,6 +11,7 @@ const auth=require('./routes/auth.js')
 const checkUser=require('./routes/UserCheck.js')
 const chatapis=require('./routes/chatapis.js')
 const cors=require('cors')
+const messagesroute=require('./routes/messagesapis.js')
   
 mongoose.connect(process.env.Mongo_Url);
 mongoose.connection.on("connected",()=>{
@@ -28,6 +29,7 @@ app.use(bodyParse.json())
 app.use('',auth)
 app.use('',checkUser)
 app.use('',chatapis)
+app.use('',messagesroute)
 
 
 app.get('/', (req, res) => {

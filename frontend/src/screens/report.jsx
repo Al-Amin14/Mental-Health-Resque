@@ -3,43 +3,38 @@ import { useNavigate } from "react-router-dom";
 
 const ReportPage = () => {
   const [condition, setCondition] = useState("");
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
-   
-  useEffect(()=>{
-    
-    const token=localStorage.getItem('jwt')
-    if(!token){
-      navigate('/login')
+  useEffect(() => {
+    const token = localStorage.getItem('jwt');
+    if (!token) {
+      navigate('/login');
     }
-
-  },[])
-
+  }, []);
 
   const handleSubmit = () => {
-    if (condition.length<=0) {
+    if (condition.length <= 0) {
       alert("Please describe your condition before submitting.");
-    }else{
-        // Handle submission logic here (e.g., send data to backend)
-        alert("Your report has been submitted successfully!");
-        setCondition(""); // Clear the textarea
+    } else {
+      // Handle submission logic here (e.g., send data to backend)
+      alert("Your report has been submitted successfully!");
+      setCondition(""); // Clear the textarea
     }
   };
 
   return (
     <div className="min-h-screen w-full bg-blue-50 flex flex-col items-center justify-center px-4">
-      <div className="w-[50%] bg-white rounded-lg shadow-lg p-6">
-        <h1 className="text-3xl w-full gap-2 justify-center items-center font-bold flex text-center text-blue-600">
-          <p className="text-red-500">Emergency</p><p className="text-green-500"> Mental Health Report</p>
+      <div className="w-full max-w-lg sm:max-w-xl md:max-w-2xl lg:max-w-3xl bg-white rounded-lg shadow-lg p-6">
+        <h1 className="text-3xl w-full justify-center items-center font-bold flex gap-2 text-center text-blue-600">
+          <p className="text-red-500 inline">Emergency</p>
+          <p className="text-green-500 inline">Mental Health Report</p>
         </h1>
         <p className="text-gray-600 text-[105%] text-center mt-2 font-semibold">
           Please describe your current condition. We’re here to help.
         </p>
         <div className="mt-6">
           <div>
-            <label
-              className="block text-gray-700 font-medium mb-2"
-            >
+            <label className="block text-gray-700 font-medium mb-2">
               Describe your condition:
             </label>
             <textarea

@@ -1,9 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { loginContext } from "../contex/logincontext";
+
 
 const PhyschologistDirectory = () => {
 
+  const {tochatlist,setTochatlist}=useContext(loginContext)
+
   const navigate=useNavigate()
+  const [Physchologists, setPhyschologists] = useState([]);
+  var filteredPhyschologists
 
 
   useEffect(() => {
@@ -11,22 +17,51 @@ const PhyschologistDirectory = () => {
 
     if(!token){
       navigate('/login')
+    }else{
+      fetch('http://localhost:3003/usersDetails',{
+        headers:{
+          'Content-Type':"application/json"
+        }
+      }).then(res=>res.json()).then(result=>{
+        setPhyschologists(result.filter(items=>{
+          return (items.role!="Client" && items._id!=localStorage.getItem('jwt'))
+        }))
+      })
     }
-
   }, []);
 
   const [searchQuery, setSearchQuery] = useState("");
 
-  const Physchologists = [
-    { id: 1, name: "Dr. Alice Johnson", specialty: "Child Psychology" },
-    { id: 2, name: "Dr. Brian Lee", specialty: "Cognitive Behavioral Therapy" },
-    { id: 3, name: "Dr. Clara Smith", specialty: "Anxiety and Depression" },
-    { id: 4, name: "Dr. David Brown", specialty: "Trauma Therapy" },
-  ];
+  
+  if(Physchologists.length>0){
 
-  const filteredPhyschologists = Physchologists.filter((Physchologist) =>
-    Physchologist.name.toLowerCase().includes(searchQuery.toLowerCase())
+    filteredPhyschologists = Physchologists.filter((Physchologist) =>
+      Physchologist.fullname.toLowerCase().includes(searchQuery.toLowerCase())
   );
+}
+
+  const handleSelectUser=(iduser)=>{
+    console.log(iduser)
+    if(window.confirm("Do you want to chat with this Physchologist")){
+      fetch('http://localhost:3003/accessChat',{
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json",
+          "Authorization":"Bearer "+localStorage.getItem('jwt')
+        },
+        body:JSON.stringify({
+          userid:iduser
+        })
+      }).then(res=>res.json()).then(result=>{
+        if(result.error){
+          alert("There is problem")
+        }else{
+          setTochatlist(true)
+          navigate('/chat')
+        }
+      })
+    }
+  }
 
   return (
     <div className="bg-gray-100 min-h-screen p-6">
@@ -44,26 +79,36 @@ const PhyschologistDirectory = () => {
         </div>
 
         <div className="bg-white shadow-xl rounded-lg">
-          {filteredPhyschologists.length > 0 ? (
+          { filteredPhyschologists!=null && (filteredPhyschologists.length > 0 ? (
             <ul >
               {filteredPhyschologists.map((Physchologist) => (
+
                 <li
-                  key={Physchologist.id}
-                  className="p-5 border-b font-bold border-2 border-green-100 hover:bg-gray-50 flex items-start gap-4"
-                >
+                  key={Physchologist._id}
+                  className="p-5 border-b font-bold border-2 border-green-100 hover:bg-gray-50 flex justify-between items-start gap-4"
+                  >
+                    <button className=" flex justify-center items-center gap-5">
+
                   <div className="flex-shrink-0 w-12 h-12 bg-blue-100 text-green-800 font-extrabold rounded-full flex items-center justify-center">
-                    {Physchologist.name[0]}
+                    Dr.
                   </div>
                   <div>
-                    <h2 className="text-lg font-semibold text-gray-800">{Physchologist.name}</h2>
-                    <p className="text-gray-600">{Physchologist.specialty}</p>
+                    <h2 className="text-lg font-semibold text-gray-800">{Physchologist.fullname.toUpperCase()}</h2>
+                    <p className="text-gray-600">Physchologist</p>
                   </div>
+                    </button>
+                    <button
+                  onClick={() => handleSelectUser(Physchologist._id)}
+                  className="bg-green-500 m-2 text-white px-2 py-1 rounded-md hover:bg-green-600 "
+                >
+                  Chat
+                </button>
                 </li>
               ))}
             </ul>
           ) : (
             <p className="p-6 text-gray-500 text-center">No Physchologists found.</p>
-          )}
+          ))}
         </div>
       </div>
     </div>

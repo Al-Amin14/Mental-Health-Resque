@@ -17,8 +17,8 @@ routes.post("/accessChat", handleusers, async (req, res) => {
     .find({
       isgrouphchat: false,
       $and: [
-        { users: { $elemMatch: { $eq: userid } } },
         { users: { $elemMatch: { $eq: req.user._id } } },
+        { users: { $elemMatch: { $eq: userid } } }
       ],
     })
     .populate("users", "-password")
@@ -57,7 +57,7 @@ routes.get("/fetchAllchat", handleusers, (req, res) => {
       .populate("users", "-password")
       .populate("grouphadmin", "-password")
       .populate("latestmessage")
-      .sort({ updateAt: -1 })
+      .sort({ updatedAt: -1 })
       .then(async (result) => {
         result = await users.populate(result, {
           path: "latestmessage.sender",
@@ -70,7 +70,7 @@ routes.get("/fetchAllchat", handleusers, (req, res) => {
   }
 });
 
-routes.get("/chatdetails", (req, res) => {
+routes.post("/chatdetails", (req, res) => {
   const { chatid } = req.body;
 
   if (!chatid) {
@@ -121,7 +121,9 @@ routes.post("/createGrouphs", handleusers, async (req, res) => {
             res.json(result)
         }
       });
-    } catch (error) {}
+    } catch (error) {
+      res.status(422).json({error:"There is a problem"})
+    }
   }
 });
 
