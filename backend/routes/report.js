@@ -43,4 +43,12 @@ routers.get('/myReports', handleusers ,async (req,res)=>{
     }
 })
 
+routers.get('/totalreports',(req,res)=>{
+    Report.find().then(result=>
+        res.json(result)
+    ).catch(error=>{
+        res.status(422).json({error:error})
+    })
+})
+
 module.exports = routers;

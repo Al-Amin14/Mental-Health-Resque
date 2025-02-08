@@ -147,6 +147,12 @@ routes.put("/renameGrouph", (req,res)=>{
     }
 })
 
+routes.get('/totalchatcout',(req,res)=>{
+  chats.find().then(result=>res.json(result)).catch(error=>{
+    res.json({error:error})
+  })
+})
+
 
 
 

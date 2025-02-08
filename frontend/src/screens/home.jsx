@@ -1,4 +1,4 @@
-import React from "react";
+import React,{ useState, useEffect} from "react";
 import { FaLeaf } from "react-icons/fa6";
 import { GiHiveMind } from "react-icons/gi";  
 import { MdFamilyRestroom } from "react-icons/md";
@@ -7,8 +7,71 @@ import { HiMiniBellAlert } from "react-icons/hi2";
 import { FaUserDoctor } from "react-icons/fa6";
 import { FaUsers } from "react-icons/fa6";
 import { FaHandsHelping } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+
 
 const Home = () => {
+  
+  const navigate=useNavigate()
+  const [Physchologists, setPhyschologists] = useState([]);
+  const [client, setClient] = useState([]);
+  const [totalreport, settotalreport] = useState([]);
+  const [totalChat, setTotalChat] = useState([]);
+
+  const getstarted=()=>{
+    const token=localStorage.getItem('jwt')
+    if(token){
+      navigate('/Education')
+    }else{
+      navigate('/login')
+    }
+  }
+
+  useEffect(() => {
+      const token=localStorage.getItem('jwt')
+  
+      if(!token){
+        navigate('/login')
+      }else{
+        fetch('http://localhost:3003/usersDetails',{
+          headers:{
+            'Content-Type':"application/json"
+          }
+        }).then(res=>res.json()).then(result=>{
+          setPhyschologists(result.filter(items=>{
+            return (items.role!="Client" && items._id!=localStorage.getItem('jwt'))
+          }))
+          setClient(result.filter(items=>{
+            return (items.role=="Client")
+          }))
+        })
+
+       fetch('http://localhost:3003/reports/totalreports',{
+        headers:{
+          'Content-Type':'Application/json'
+        }
+       }).then(res=>res.json()).then(result=>{
+        if(!result.error){
+        settotalreport(result)
+      }
+       })
+
+       fetch('http://localhost:3003/totalchatcout',{
+        headers:{
+          'Content-Type':'Application/json'
+        }
+       }).then(res=>res.json()).then(result=>{
+        if(!result.error){
+          setTotalChat(result)
+      }
+       })
+       
+      }
+    }, []);
+
+
+
+
   return (
     <div className=" w-[100%] max-[640px]:text-xs flex flex-col justify-center items-center">
         <div className="flex flex-col justify-center items-center gap-10 mt-0" >
@@ -22,7 +85,7 @@ const Home = () => {
               <div className="max-[640px]:text-xs font-semibold text-xl mx-[10%]">
                 Join our communitry and keep your free from mental diseases. Have a great life in your future</div>
               <div className="mt-5">
-                <button className="max-[640px]:text-xs font-semibold bg-green-600 p-4 text-2xl rounded-full hover:border-black hover:border-2"  >Get started</button>
+                <button onClick={getstarted} className="max-[640px]:text-xs font-semibold bg-green-600 p-4 text-2xl rounded-full hover:border-black hover:border-2"  >Get started</button>
               </div>
             </div>
         </div>
@@ -47,19 +110,19 @@ const Home = () => {
           <div className="w-full flex justify-around max-[640px]:justify-between items-center mt-9 max-[640px]:mt-3">
             <div className="bg-slate-200 rounded-xl p-7 max-[640px]:h-[150px]  w-[20%] h-[200px] font-bold flex flex-col justify-center items-center gap-4">
             <HiMiniBellAlert className='max-[640px]:w-5 w-14 h-14 drop-shadow-[0_35px_35px_rgba(26,77,23,0.77)] text-green-600 font-bold' />
-              <p className="max-[640px]:text-xs">Total report count</p>
+              <p className="max-[640px]:text-xs">Total report {totalreport.length}</p>
             </div>
             <div className="max-[640px]:h-[150px] bg-slate-200 rounded-xl p-7 w-[20%] h-[200px] font-bold flex flex-col justify-center items-center gap-4">
             <FaUsers className='max-[640px]:w-5 w-14 h-14 drop-shadow-[0_35px_35px_rgba(26,77,23,0.77)] text-green-600 font-bold' />
-              <p className="max-[640px]:text-xs">Total Uses count</p>
+              <p className="max-[640px]:text-xs">Total Client {client.length}</p>
             </div>
             <div className="max-[640px]:h-[150px] bg-slate-200 rounded-xl p-7 w-[20%] h-[200px] font-bold flex flex-col justify-center items-center gap-4">
             <FaUserDoctor className='max-[640px]:w-5 w-14 h-14 drop-shadow-[0_35px_35px_rgba(26,77,23,0.77)] text-green-600 font-bold' />
-              <p className="max-[640px]:text-xs" >total physologist count</p>
+              <p className="max-[640px]:text-xs" >total physologist {Physchologists.length}</p>
             </div>
             <div className="max-[640px]:h-[150px] bg-slate-200 rounded-xl p-7 w-[20%] h-[200px] font-bold flex flex-col justify-center items-center gap-4">
             <FaHandsHelping className='max-[640px]:w-5 w-14 h-14 drop-shadow-[0_35px_35px_rgba(26,77,23,0.77)] text-green-600 font-bold' />
-              <p className="max-[640px]:text-xs" >Benefited count</p>
+              <p className="max-[640px]:text-xs" >Benefited Users {totalChat.length}</p>
             </div>
         </div>
         </div>
