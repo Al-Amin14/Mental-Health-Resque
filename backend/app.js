@@ -10,6 +10,7 @@ const mongoose=require('mongoose')
 const auth=require('./routes/auth.js')  
 const checkUser=require('./routes/UserCheck.js')
 const chatapis=require('./routes/chatapis.js')
+const reporting=require('./routes/report.js')
 const cors=require('cors')
 const messagesroute=require('./routes/messagesapis.js')
   
@@ -30,6 +31,7 @@ app.use('',auth)
 app.use('',checkUser)
 app.use('',chatapis)
 app.use('',messagesroute)
+app.use('/reports',reporting)
 
 
 app.get('/', (req, res) => {

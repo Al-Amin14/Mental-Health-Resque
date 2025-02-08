@@ -11,14 +11,10 @@ const report_notificationmodel=mongoose.Schema({
     usersend:{
         type:ObjectId,
         type:"user",
-    },
-    messageing:{
-        type:ObjectId,
-        type:"chat"
     }
 },{
     timestamps:true
 }
 )
 
-module.exports=mongoose.model('reports',report_notificationmodel)
+module.exports=mongoose.model('reportsnotification',report_notificationmodel)
