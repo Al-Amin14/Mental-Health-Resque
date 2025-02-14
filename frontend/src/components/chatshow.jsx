@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { FaEdit } from "react-icons/fa";
+import io from 'socket.io-client'
 
+
+const endpoint="http://localhost:3003"
+var socket,selectedChatCompare;
 
 const chatshow = ({chatiduser,showChatbar,setShowChatbar}) => {
 
@@ -9,6 +13,7 @@ const chatshow = ({chatiduser,showChatbar,setShowChatbar}) => {
     const [chatdetailsvalue, setChatdetailsvalue] = useState([]);
     const [totalchat, setTotalchat] = useState([]);
     const [input, setInput] = useState("");
+    const [socketconnected, setsocketconnected] = useState(false);
 
     const renaming=()=>{    
         fetch('http://localhost:3003/renameGrouph',{
@@ -35,6 +40,13 @@ const chatshow = ({chatiduser,showChatbar,setShowChatbar}) => {
     useEffect(()=>{
         const token=localStorage.getItem('jwt')
         if(token){
+
+          console.log("------")
+
+          socket=io(endpoint)
+          socket.emit("setup",localStorage.getItem('user'));
+          socket.on("connection",()=>setsocketconnected(true))
+
             fetch('http://localhost:3003/chatdetails',{
                 method:"POST",
                 headers:{
@@ -58,13 +70,14 @@ const chatshow = ({chatiduser,showChatbar,setShowChatbar}) => {
                     if(!result.error){
                         setTotalchat(result)
                  }
+                 socket.emit("join chat",chatiduser)
                 }
               )
             }
             })
 
         }
-    },[chatiduser])
+    },[ chatiduser])
 
 
     const sendMessage=()=>{

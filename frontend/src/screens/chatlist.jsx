@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ChatPage from '../components/chatshow'
 
+
 const chatlist = () => {
 
     const [fullChatList, setFullChatList] = useState([]);
@@ -12,6 +13,9 @@ const chatlist = () => {
 
         const token = localStorage.getItem('jwt')
         if(token){
+
+
+
             fetch('http://localhost:3003/fetchAllchat',{
                 headers:{
                     "Authorization":"Bearer "+localStorage.getItem('jwt')

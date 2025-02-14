@@ -6,7 +6,7 @@ const users=require('../model/signUp.js')
 
 routes.get('/usersDetails',(req,res)=>{
     users.find().then(result=>{
-        console.log(result)
+        // console.log(result)
         res.json(result)
     }).catch(error=>{
         console.log(error)

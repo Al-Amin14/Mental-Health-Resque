@@ -34,7 +34,7 @@ routes.post('/singup',async (req,res)=>{
                         console.log(err)
                         res.status(422).json({error:err})
                     })
-                    
+
                 })  
             }
         }

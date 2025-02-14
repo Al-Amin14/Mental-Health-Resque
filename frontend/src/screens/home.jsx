@@ -30,9 +30,7 @@ const Home = () => {
   useEffect(() => {
       const token=localStorage.getItem('jwt')
   
-      if(!token){
-        navigate('/login')
-      }else{
+      
         fetch('http://localhost:3003/usersDetails',{
           headers:{
             'Content-Type':"application/json"
@@ -66,7 +64,7 @@ const Home = () => {
       }
        })
        
-      }
+      
     }, []);
 
 

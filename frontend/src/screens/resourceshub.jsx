@@ -1,49 +1,132 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect ,useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Resoursesnav from "../components/resousesnav";
+import { FaUser, FaHeart } from "react-icons/fa";
+import { loginContext } from "../contex/logincontext";
+import PostTextUI from "../components/posttextblogs";
+import MyreactpostUi from "../components/myreactposts";
+
+
 
 const Education= () => {
+
+  const {vlogshome,setVlogshome,vlogpost,setVlogpost,myposts,setMyposts}=useContext(loginContext)
+
   const navigate=useNavigate()
+
+  const [allposts, setAllposts] = useState([]);
+  const [allmyposts, setAllmyposts] = useState([]);
 
   useEffect(() => {
     const token=localStorage.getItem('jwt')
     if(!token){
       navigate('/login')
+    }else{
+      fetch('http://localhost:3003/vlogs/getblogspost',{
+        "Content-Type":"Application/json"
+      }).then(res=>res.json()).then(result=>{
+        setAllposts(result)
+        // console.log("___")
+      })
     }
   }, []);
 
-  const resources = [
-    { id: 1, title: "Managing Anxiety", description: "Learn practical tips to manage anxiety.", link: "#" },
-    { id: 2, title: "Coping with Depression", description: "Resources to help you understand and cope with depression.", link: "#" },
-    { id: 3, title: "Mindfulness Practices", description: "Guided mindfulness exercises to promote relaxation.", link: "#" },
-    { id: 4, title: "Building Resilience", description: "Strategies to build emotional and mental resilience.", link: "#" },
-  ];
+  const handleunlike=(id)=>{
+
+    fetch('http://localhost:3003/vlogs/unlikePost',{
+      
+      method:"PUT",
+      headers:{
+        "Content-Type":"application/json",
+        "Authorization":"Bearer "+localStorage.getItem('jwt')
+      },
+      body:JSON.stringify(
+        {postid:id}
+      )
+      
+    }).then(res=>res.json()).then(result=>{
+
+      const newdata=allposts.map(items=>{
+        if(items._id==result._id){
+          return result
+        }else{
+          return items
+        }
+      })
+      console.log(newdata)
+      setAllposts(newdata)
+      
+    })
+  }
+  const handlelikes=(id)=>{
+
+    fetch('http://localhost:3003/vlogs/likePost',{
+      
+      method:"PUT",
+      headers:{
+        "Content-Type":"application/json",
+        "Authorization":"Bearer "+localStorage.getItem('jwt')
+      },
+      body:JSON.stringify(
+        {postid:id}
+      )
+      
+    }).then(res=>res.json()).then(result=>{
+
+     
+      fetch('http://localhost:3003/vlogs/getblogspost',{
+        "Content-Type":"Application/json"
+      }).then(res=>res.json()).then(result=>{
+        setAllposts(result)
+        // console.log("___")
+      })
+      
+    })
+  }
+  
+ 
 
   return (
     <div className="bg-gray-50 min-h-screen p-6">
-      <div className="max-w-5xl mx-auto">
-        <h1 className="text-3xl font-bold text-center text-green-600 mb-8">Education & Resource Hub</h1>
-        <p className="text-center font-semibold text-gray-700 mb-10">
-          Explore resources and educational materials to support your mental health journey.
-        </p>
+      <Resoursesnav/>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {resources.map((resource) => (
-            <div
-              key={resource.id}
-              className="bg-white shadow-md rounded-lg p-6 hover:shadow-lg transition-shadow duration-200"
-            >
-              <h2 className="text-xl font-bold text-gray-800 mb-2">{resource.title}</h2>
-              <p className="text-gray-600 mb-4">{resource.description}</p>
-              <a
-                href={resource.link}
-                className="text-green-500 font-medium hover:underline"
-              >
-                Learn More
-              </a>
-            </div>
-          ))}
-        </div>
-      </div>
+    {  vlogshome && vlogpost==false && myposts==false &&
+(
+      <div className="flex flex-col justify-center gap-2 m-5 items-center">
+        {
+          allposts.map(items=>{
+                  return <div key={items._id} className="w-[60%] p-4 flex flex-col items-center space-y-4 shadow-lg border rounded-lg">
+                        <span className="text-lg font-semibold">{items.user.fullname}</span>  
+                        <p className="text-sm text-gray-600 text-center">
+                          {items.vlogcontent}
+                        </p>
+                        {
+                          items.likes.includes(localStorage.getItem('user')) ?
+                          (<FaHeart onClick={()=>handleunlike(items._id)} className="w-6 h-6 text-red-500 mt-2" />)
+                          :
+                          (<FaHeart onClick={()=>handlelikes(items._id)} className="w-6 h-6 text-black mt-2" />)
+                        }
+                  
+                      </div>
+                  
+                })
+        }
+      
+      </div>)
+              }
+
+              {
+                vlogshome==false && vlogpost && myposts==false &&  <PostTextUI/>
+              }
+
+              {
+                vlogshome==false && vlogpost==false && myposts &&
+                (
+                  <div className="w-[100%] flex flex-col justify-center gap-2 m-5 items-center">
+                  <MyreactpostUi/>
+                    </div>
+                )
+              }
     </div>
   );
 };

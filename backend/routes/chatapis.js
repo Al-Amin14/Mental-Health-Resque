@@ -30,7 +30,7 @@ routes.post("/accessChat", handleusers, async (req, res) => {
   });
 
   if (ischat.length > 0) {
-    console.log(` printing chats ${ischat}`);
+    // console.log(` printing chats ${ischat}`);
     res.json(ischat[0]);
   } else {
     const chatdata = {
@@ -93,12 +93,12 @@ routes.post("/createGrouphs", handleusers, async (req, res) => {
   else {
     var alluser = JSON.parse(req.body.users);
 
-    console.log(alluser);
+    // console.log(alluser);
 
     if (alluser.length < 2) {
       return res.status(422).json({ error: "Not valid for creating a grouph" });
     }
-    console.log(req.user._id)
+    // console.log(req.user._id)
 
     await alluser.push(req.user._id);
 

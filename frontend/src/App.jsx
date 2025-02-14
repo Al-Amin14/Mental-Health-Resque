@@ -21,6 +21,9 @@ function App() {
   const [loged, setLoged] = useState(false);
   const [slideShow, setSlideShow] = useState(true);
   const [tochatlist, setTochatlist] = useState(false);
+  const [vlogshome, setVlogshome] = useState(true);
+  const [vlogpost, setVlogpost] = useState(false);
+  const [myposts, setMyposts] = useState(false);
 
   const toggleing=()=>{
     if(slideShow){
@@ -34,7 +37,7 @@ function App() {
     <BrowserRouter>
       <div>
 
-        <loginContext.Provider value={{loged,setLoged,tochatlist,setTochatlist}} >
+        <loginContext.Provider value={{loged,setLoged,tochatlist,setTochatlist,vlogshome,setVlogshome,vlogpost,setVlogpost,myposts,setMyposts}} >
 
 
         <Navbar toggleing={toggleing} />
