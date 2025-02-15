@@ -36,17 +36,21 @@ const chatshow = ({chatiduser,showChatbar,setShowChatbar}) => {
         }
     }
 
+    useEffect(() => {
 
+      socket=io(endpoint)
+          socket.emit("setup",localStorage.getItem('user'));
+          socket.on("connection",()=>setsocketconnected(true))
+    }, []);
+   
+
+    
     useEffect(()=>{
         const token=localStorage.getItem('jwt')
         if(token){
 
-          console.log("------")
-
-          socket=io(endpoint)
-          socket.emit("setup",localStorage.getItem('user'));
-          socket.on("connection",()=>setsocketconnected(true))
-
+          
+          
             fetch('http://localhost:3003/chatdetails',{
                 method:"POST",
                 headers:{
@@ -79,6 +83,24 @@ const chatshow = ({chatiduser,showChatbar,setShowChatbar}) => {
         }
     },[ chatiduser])
 
+    
+
+    useEffect(() => {
+
+      setTotalchat(totalchat)
+
+      socket.on("message received",(newMessageRecived)=>{
+
+        console.log(newMessageRecived.chat._id)
+        if(chatiduser !== newMessageRecived.chat._id){
+          console.log(`${chatiduser}         ${newMessageRecived.chat._id}`)
+        }else{
+
+          setTotalchat([...totalchat,newMessageRecived])
+        }
+      }
+    )
+    });
 
     const sendMessage=()=>{
         fetch('http://localhost:3003/sendmessage',{
@@ -99,10 +121,11 @@ const chatshow = ({chatiduser,showChatbar,setShowChatbar}) => {
               }else{
                 console.log(result)
               }
-            
+              socket.emit("new message",result)
         })
     }
 
+    
 
 
   return (
