@@ -11,6 +11,7 @@ import MyreactpostUi from "../components/myreactposts";
 const Education= () => {
 
   const {vlogshome,setVlogshome,vlogpost,setVlogpost,myposts,setMyposts}=useContext(loginContext)
+  const {chatiduser, setChatiduser,setCheckAnother}=useContext(loginContext)
 
   const navigate=useNavigate()
 
@@ -23,6 +24,8 @@ const Education= () => {
     if(!token){
       navigate('/login')
     }else{
+      setChatiduser("")
+      setCheckAnother(true)
       fetch('http://localhost:3003/vlogs/getblogspost',{
         "Content-Type":"Application/json"
       }).then(res=>res.json()).then(result=>{

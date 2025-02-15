@@ -6,10 +6,9 @@ import { loginContext } from '../contex/logincontext'
 
 const chat = () => {
   
-  const {tochatlist,setTochatlist}=useContext(loginContext)
+  const {tochatlist,setTochatlist,setCheckAnother}=useContext(loginContext)
   const [chatlist, setChatlist] = useState(false);
 
-  
 
   return (
     <div>

@@ -5,7 +5,7 @@ import { loginContext } from "../contex/logincontext";
 
 const PhyschologistDirectory = () => {
 
-  const {tochatlist,setTochatlist}=useContext(loginContext)
+  const {tochatlist,setTochatlist,setCheckAnother}=useContext(loginContext)
 
   const navigate=useNavigate()
   const [Physchologists, setPhyschologists] = useState([]);
@@ -18,6 +18,7 @@ const PhyschologistDirectory = () => {
     if(!token){
       navigate('/login')
     }else{
+      setCheckAnother(true)
       fetch('http://localhost:3003/usersDetails',{
         headers:{
           'Content-Type':"application/json"

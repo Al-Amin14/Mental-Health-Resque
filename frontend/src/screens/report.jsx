@@ -6,6 +6,7 @@ const ReportPage = () => {
   const [condition, setCondition] = useState("");
   const [reports, setReports] = useState([]);
   const navigate = useNavigate();
+  const {chatiduser, setChatiduser,setCheckAnother}=useContext(loginContext)
 
 
   useEffect(() => {
@@ -13,6 +14,8 @@ const ReportPage = () => {
     if (!token) {
       navigate("/login");
     } else {
+      setCheckAnother(true)
+      setChatiduser("")
       fetchReports(token);
     }
   }, []);

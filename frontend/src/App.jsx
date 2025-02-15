@@ -18,8 +18,6 @@ import { loginContext } from './contex/logincontext';
 import NotificationList from './components/notification';
 
 
-
-
 function App() {
 
   const [loged, setLoged] = useState(false);
@@ -31,6 +29,8 @@ function App() {
   const [notification, setNotification] = useState([]);
   const [totalchat, setTotalchat] = useState([]);
   const [notifcounting,setNotifcounting]=useState(0)
+  const [chatiduser, setChatiduser] = useState("");
+  const [checkAnother, setCheckAnother] = useState(true);
 
   
 
@@ -48,7 +48,7 @@ function App() {
     <BrowserRouter>
       <div>
 
-        <loginContext.Provider value={{notifcounting,setNotifcounting,loged,setLoged,totalchat,setTotalchat,tochatlist,setTochatlist,vlogshome,setVlogshome,vlogpost,setVlogpost,myposts,setMyposts,notification,setNotification}} >
+        <loginContext.Provider value={{checkAnother,setCheckAnother,notifcounting,setNotifcounting,loged,setLoged,totalchat,setTotalchat,tochatlist,setTochatlist,vlogshome,setVlogshome,vlogpost,setVlogpost,myposts,setMyposts,notification,setNotification,chatiduser, setChatiduser}} >
 
         <Navbar toggleing={toggleing} />
         <div className='flex w-[100%] h-auto'>

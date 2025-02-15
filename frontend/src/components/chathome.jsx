@@ -11,10 +11,12 @@ const chathome = ({setChatlist}) => {
   const [allusers, setAllusers] = useState([]);
   const [selectedusers, setSelectedusers] = useState([]);
   const [grouphName, setGrouphName] = useState("");
-  const {tochatlist,setTochatlist}=useContext(loginContext)
+  const {tochatlist,setTochatlist,setCheckAnother}=useContext(loginContext)
 
 
   useEffect(() => {
+
+    
   }, []);
 
 

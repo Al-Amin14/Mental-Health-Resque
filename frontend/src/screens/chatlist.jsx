@@ -16,7 +16,6 @@ const chatlist = () => {
 
     const [fullChatList, setFullChatList] = useState([]);
     const [showChatbar, setShowChatbar] = useState(false);
-    const [chatiduser, setChatiduser] = useState("");
     const [showName, setShowName] = useState(false);
     const [updatename, setUpdatename] = useState("");
     const [chatdetailsvalue, setChatdetailsvalue] = useState([]);
@@ -24,11 +23,14 @@ const chatlist = () => {
     const [input, setInput] = useState("");
     const [socketconnected, setsocketconnected] = useState(false);
 
+    const {chatiduser, setChatiduser,setCheckAnother}=useContext(loginContext)
+
 
     useEffect(() => {
 
         const token = localStorage.getItem('jwt')
         if(token){
+          setCheckAnother(false)
           socket=io(endpoint)
       socket.emit("setup",localStorage.getItem('user'));
       socket.on("connection",()=>setsocketconnected(true))
@@ -136,12 +138,11 @@ const chatlist = () => {
        
         socket.on("message received",(newMessageRecived)=>{
         
-        if(chatiduser != newMessageRecived.chat._id  ){
+        if(value != newMessageRecived.chat._id  ){
             
             var iduser=newMessageRecived.chat.users.map(items=>items._id)
             iduser=JSON.stringify(iduser)
             
-    
     
               fetch('http://localhost:3003/notifying/createNotification',{
               method: "POST",

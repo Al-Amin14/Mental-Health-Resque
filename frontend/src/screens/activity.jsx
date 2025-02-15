@@ -9,12 +9,17 @@ import { loginContext } from '../contex/logincontext';
 function WellBeing() {
 
 
+  const {setCheckAnother,chatiduser, setChatiduser}=useContext(loginContext)
+
   const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem('jwt');
     if (!token) {
       navigate("/login");
+    }else{
+      setCheckAnother(true)
+      setChatiduser("")
     }
   }, []);
 

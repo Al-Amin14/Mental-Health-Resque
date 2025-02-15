@@ -18,7 +18,7 @@ const Home = () => {
   const [client, setClient] = useState([]);
   const [totalreport, settotalreport] = useState([]);
   const [totalChat, setTotalChat] = useState([]);
-  const {chatiduser, setChatiduser}=useContext(loginContext)
+  const {chatiduser, setChatiduser,setCheckAnother}=useContext(loginContext)
   
 
   const getstarted=()=>{
@@ -33,7 +33,8 @@ const Home = () => {
   useEffect(() => {
       const token=localStorage.getItem('jwt')
   
-     
+        setChatiduser("")
+        setCheckAnother(true)
         fetch('http://localhost:3003/usersDetails',{
           headers:{
             'Content-Type':"application/json"
