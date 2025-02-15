@@ -40,6 +40,7 @@ const LoginPage = () => {
           localStorage.setItem('jwt',result.token)
           localStorage.setItem('user',result._id)
           toast.success(result.success)
+          
           navigate('/')
         }
       })

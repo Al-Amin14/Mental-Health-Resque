@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { loginContext } from "../contex/logincontext";
 
 const ReportPage = () => {
   const [condition, setCondition] = useState("");
   const [reports, setReports] = useState([]);
   const navigate = useNavigate();
+
 
   useEffect(() => {
     const token = localStorage.getItem("jwt");

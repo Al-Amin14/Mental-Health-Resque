@@ -15,6 +15,7 @@ const reporting = require("./routes/report.js");
 const vlogscontent = require("./routes/blogs.js");
 const cors = require("cors");
 const messagesroute = require("./routes/messagesapis.js");
+const notification=require("./routes/notificaions.js")
 
 mongoose.connect(process.env.Mongo_Url);
 mongoose.connection.on("connected", () => {
@@ -34,6 +35,7 @@ app.use("", chatapis);
 app.use("", messagesroute);
 app.use("/reports", reporting);
 app.use("/vlogs", vlogscontent);
+app.use("/notifying", notification);
 
 app.get("/livinglife/living", (req, res) => {
   res.json(

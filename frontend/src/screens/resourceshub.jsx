@@ -17,6 +17,7 @@ const Education= () => {
   const [allposts, setAllposts] = useState([]);
   const [allmyposts, setAllmyposts] = useState([]);
 
+
   useEffect(() => {
     const token=localStorage.getItem('jwt')
     if(!token){

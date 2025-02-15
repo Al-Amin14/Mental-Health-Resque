@@ -1,9 +1,13 @@
 //ativity page
 
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
+import { loginContext } from '../contex/logincontext';
+
+
 
 function WellBeing() {
+
 
   const navigate = useNavigate();
 
@@ -29,7 +33,7 @@ function WellBeing() {
           {/* Meditation  */}
           <div className="bg-green-200 p-6 rounded-lg text-center shadow-lg">
             <h2 className="text-2xl font-semibold text-green-800 mb-4">Meditation</h2>
-            <p className="text-lg mb-6">Focus your mind and relieve stress with guided meditation sessions.</p>
+          <p className="text-lg mb-6">Focus your mind and relieve stress with guided meditation sessions.</p>
             <button className="bg-green-400 text-white py-2 px-4 rounded-full text-lg transition-transform hover:bg-green-500"><a href='https://www.timeanddate.com/timer/' target='_blank'>Start Meditation</a></button>
           </div>
 

@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { FaEdit } from "react-icons/fa";
 import io from 'socket.io-client'
+import { useContext } from 'react';
+import { loginContext } from '../contex/logincontext';
+
 
 
 const endpoint="http://localhost:3003"
@@ -14,6 +17,8 @@ const chatshow = ({chatiduser,showChatbar,setShowChatbar}) => {
     const [totalchat, setTotalchat] = useState([]);
     const [input, setInput] = useState("");
     const [socketconnected, setsocketconnected] = useState(false);
+    
+    const {notification,setNotification,notifcounting,setNotifcounting}=useContext(loginContext)
 
     const renaming=()=>{    
         fetch('http://localhost:3003/renameGrouph',{
@@ -30,7 +35,7 @@ const chatshow = ({chatiduser,showChatbar,setShowChatbar}) => {
 
     const toggleing=()=>{
         if(showName){
-            setShowName(false)
+          setShowName(false)
         }else{
             setShowName(true)
         }
@@ -39,8 +44,9 @@ const chatshow = ({chatiduser,showChatbar,setShowChatbar}) => {
     useEffect(() => {
 
       socket=io(endpoint)
-          socket.emit("setup",localStorage.getItem('user'));
-          socket.on("connection",()=>setsocketconnected(true))
+      socket.emit("setup",localStorage.getItem('user'));
+      socket.on("connection",()=>setsocketconnected(true))
+
     }, []);
    
 
@@ -49,8 +55,8 @@ const chatshow = ({chatiduser,showChatbar,setShowChatbar}) => {
         const token=localStorage.getItem('jwt')
         if(token){
 
-          
-          
+          setTotalchat([])
+
             fetch('http://localhost:3003/chatdetails',{
                 method:"POST",
                 headers:{
@@ -81,27 +87,72 @@ const chatshow = ({chatiduser,showChatbar,setShowChatbar}) => {
             })
 
         }
+
+        console.log(chatiduser)
     },[ chatiduser])
+
+     
+    
+      useEffect(() => {
+    
+        setTotalchat(totalchat)
+    
+       
+        socket.on("message received",(newMessageRecived)=>{
+          console.log(chatiduser+"___________________")
+    
+        if(chatiduser != newMessageRecived.chat._id  ){
+            
+            var iduser=newMessageRecived.chat.users.map(items=>items._id)
+            iduser=JSON.stringify(iduser)
+            
+    
+    
+              fetch('http://localhost:3003/notifying/createNotification',{
+              method: "POST",
+              headers: {
+                  "Content-Type": "application/json",
+                },
+              body:JSON.stringify({
+                content:newMessageRecived.message,
+                chat:newMessageRecived.chat._id,
+                sender:newMessageRecived.sender._id,
+                tosend:iduser
+              })
+            }).then(res=>res.json()).then(result=>{
+              if(!result.error){
+                setNotifcounting(notifcounting+1)
+                setNotification([newMessageRecived,...notification])
+            }
+             })
+             
+            
+          }else{
+            console.log(newMessageRecived)
+            if(chatiduser === newMessageRecived.chat._id){
+              console.log(chatiduser+"     "+newMessageRecived.chat._id)
+              setTotalchat([...totalchat,newMessageRecived])
+            }
+          }
+        }
+      )
+      });
+    
+    
+        const logoutHandle=()=>{
+          if(window.confirm("Do want to log out")){
+          localStorage.clear()
+          navigate('/')
+          setLoged(false)
+        }
+        }
+
 
     
 
-    useEffect(() => {
+    
 
-      setTotalchat(totalchat)
-
-      socket.on("message received",(newMessageRecived)=>{
-
-        console.log(newMessageRecived.chat._id)
-        if(chatiduser !== newMessageRecived.chat._id){
-          console.log(`${chatiduser}         ${newMessageRecived.chat._id}`)
-        }else{
-
-          setTotalchat([...totalchat,newMessageRecived])
-        }
-      }
-    )
-    });
-
+ 
     const sendMessage=()=>{
         fetch('http://localhost:3003/sendmessage',{
             method:"POST",

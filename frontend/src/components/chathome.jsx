@@ -13,6 +13,11 @@ const chathome = ({setChatlist}) => {
   const [grouphName, setGrouphName] = useState("");
   const {tochatlist,setTochatlist}=useContext(loginContext)
 
+
+  useEffect(() => {
+  }, []);
+
+
   useEffect(() => {
     const token = localStorage.getItem("jwt");
     if (!token) {
@@ -27,7 +32,7 @@ const chathome = ({setChatlist}) => {
           setAllusers(result.filter(items => items._id != localStorage.getItem('user')))
         }
       })
-
+      
     }
   }, [search]);
 

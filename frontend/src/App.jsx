@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from './components/navbar';
+
 import SideBar from './components/SideBar';
 import Home from './screens/home';
 import Activity from './screens/activity';
@@ -14,6 +15,9 @@ import Chat from './screens/chat';
 import ChatList from './screens/chatlist'
 import { ToastContainer } from 'react-toastify'
 import { loginContext } from './contex/logincontext';
+import NotificationList from './components/notification';
+
+
 
 
 function App() {
@@ -24,10 +28,17 @@ function App() {
   const [vlogshome, setVlogshome] = useState(true);
   const [vlogpost, setVlogpost] = useState(false);
   const [myposts, setMyposts] = useState(false);
+  const [notification, setNotification] = useState([]);
+  const [totalchat, setTotalchat] = useState([]);
+  const [notifcounting,setNotifcounting]=useState(0)
+
+  
 
   const toggleing=()=>{
+    
     if(slideShow){
       setSlideShow(false)
+
     }else{
       setSlideShow(true)
     }
@@ -37,8 +48,7 @@ function App() {
     <BrowserRouter>
       <div>
 
-        <loginContext.Provider value={{loged,setLoged,tochatlist,setTochatlist,vlogshome,setVlogshome,vlogpost,setVlogpost,myposts,setMyposts}} >
-
+        <loginContext.Provider value={{notifcounting,setNotifcounting,loged,setLoged,totalchat,setTotalchat,tochatlist,setTochatlist,vlogshome,setVlogshome,vlogpost,setVlogpost,myposts,setMyposts,notification,setNotification}} >
 
         <Navbar toggleing={toggleing} />
         <div className='flex w-[100%] h-auto'>
@@ -58,6 +68,7 @@ function App() {
               <Route path='/signup' element={<SignUp/>}></Route>
               <Route path='/chat' element={<Chat/>}>  </Route>
               <Route path='/chatlist' element={<ChatList/>} ></Route>
+              <Route path='/notifications' element={<NotificationList/>} ></Route>
             </Routes>
           </div>): (<div className='h-auto bg-gray-100 w-[100%] '> <Routes>
               <Route path="/" element={<Home/>} ></Route>
@@ -69,6 +80,7 @@ function App() {
               <Route path='/signup' element={<SignUp/>}></Route>
               <Route path='/chat' element={<Chat/>}>  </Route>
               <Route path='/chatlist' element={<ChatList/>} ></Route>
+              <Route path='/notifications' element={<NotificationList/>} ></Route>
               
             </Routes>
           </div>)}

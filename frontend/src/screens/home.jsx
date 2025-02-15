@@ -1,4 +1,4 @@
-import React,{ useState, useEffect} from "react";
+import React,{ useState, useEffect , useContext} from "react";
 import { FaLeaf } from "react-icons/fa6";
 import { GiHiveMind } from "react-icons/gi";  
 import { MdFamilyRestroom } from "react-icons/md";
@@ -8,6 +8,7 @@ import { FaUserDoctor } from "react-icons/fa6";
 import { FaUsers } from "react-icons/fa6";
 import { FaHandsHelping } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { loginContext } from "../contex/logincontext";
 
 
 const Home = () => {
@@ -17,6 +18,8 @@ const Home = () => {
   const [client, setClient] = useState([]);
   const [totalreport, settotalreport] = useState([]);
   const [totalChat, setTotalChat] = useState([]);
+  const {chatiduser, setChatiduser}=useContext(loginContext)
+  
 
   const getstarted=()=>{
     const token=localStorage.getItem('jwt')
@@ -30,7 +33,7 @@ const Home = () => {
   useEffect(() => {
       const token=localStorage.getItem('jwt')
   
-      
+     
         fetch('http://localhost:3003/usersDetails',{
           headers:{
             'Content-Type':"application/json"
