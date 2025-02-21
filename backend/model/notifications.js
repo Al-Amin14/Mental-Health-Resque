@@ -15,10 +15,14 @@ const NotificationMode=mongoose.Schema({
         type:ObjectId,
         ref:"users"
     },
-    tosend: [{
+    tosend:[{
         type:ObjectId,
         ref:"users"
     }],
+    notify:{
+        type: Boolean,
+        default: false
+    }
 },{
     timestamps:true
 })

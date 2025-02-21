@@ -32,6 +32,16 @@ function App() {
   const [chatiduser, setChatiduser] = useState("");
   const [checkAnother, setCheckAnother] = useState(true);
 
+ 
+  useEffect(() => {
+
+    const token=localStorage.getItem('jwt')
+      if(token){
+        setLoged(true)
+      }
+    
+  }, []);
+
   
 
   const toggleing=()=>{

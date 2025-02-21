@@ -19,7 +19,7 @@ const SideBar = () => {
       <div className='w-full'>
         <ul className='cursor-pointer flex gap-2 sm:gap-3 justify-start w-full items-center'>
           <li><FaBookMedical className="text-sm sm:text-base md:text-lg" /></li>
-          <li><Link to='/Education'>Resouces / EducationHub</Link></li>
+          <li><Link to='/Education'>vlogs</Link></li>
         </ul>
       </div>
       <div className='w-full'>
@@ -35,9 +35,9 @@ const SideBar = () => {
         </ul>
       </div>
       <div className='w-full'>
-        <ul className='cursor-pointer flex gap-2 sm:gap-3 justify-start w-full items-center'>
+        <ul className='cursor-pointer max-[640px]:gap-1 flex gap-2 sm:gap-3 justify-start w-full items-center'>
           <li><FaUserDoctor className="text-sm sm:text-base md:text-lg" /></li>
-          <li><Link to='/Physchologist'>Psychologist / Therapist</Link></li>
+          <li ><Link to='/Physchologist'>Psychologist</Link></li>
         </ul>
       </div>
       <div className='w-full'>

@@ -50,8 +50,8 @@ const LoginPage = () => {
   }
 
   return (
-    <div className="login-container h-full w-full  min-h-full">
-      <div className="login-form drop-shadow-[0_35px_35px_rgba(26,77,23,0.77)] ">
+    <div className="max-[640px]:w[50%] login-container h-full w-full  min-h-full">
+      <div className=" login-form drop-shadow-[0_35px_35px_rgba(26,77,23,0.77)] ">
         <h2 className="login-header">Welcome Back!</h2>
         <div>
           <div className="input-group">

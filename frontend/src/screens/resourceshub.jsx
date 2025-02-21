@@ -99,9 +99,9 @@ const Education= () => {
       <div className="flex flex-col justify-center gap-2 m-5 items-center">
         {
           allposts.map(items=>{
-                  return <div key={items._id} className="w-[60%] p-4 flex flex-col items-center space-y-4 shadow-lg border rounded-lg">
+                  return <div key={items._id} className="w-[60%] max-[640px]:text-xs max-[640px]:w-[100%] p-4 flex flex-col items-center space-y-4 shadow-lg border rounded-lg">
                         <span className="text-lg font-semibold">{items.user.fullname}</span>  
-                        <p className="text-sm text-gray-600 text-center">
+                        <p className=" text-sm text-gray-600 text-center">
                           {items.vlogcontent}
                         </p>
                         {

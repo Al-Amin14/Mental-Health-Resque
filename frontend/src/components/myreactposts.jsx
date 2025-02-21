@@ -23,7 +23,6 @@ export default function Myreactpost() {
         }
     }, []);
 
-
     return (
         <div>
 
@@ -31,7 +30,7 @@ export default function Myreactpost() {
                 allpostsing.map(items => {
                     return <div className="flex justify-center items-center">
 
-                    <div key={items._id} className="w-[40%] p-4 flex flex-col items-center justify-center space-y-4 shadow-lg border rounded-lg">
+                    <div key={items._id} className="max-[640px]:w-[100%] w-[40%] p-4 flex flex-col items-center justify-center space-y-4 shadow-lg border rounded-lg">
                         <span className="text-lg font-semibold">{items.user.fullname}</span>
                         <p className="text-sm text-gray-600 text-center">
                             {items.vlogcontent}

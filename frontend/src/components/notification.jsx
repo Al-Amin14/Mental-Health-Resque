@@ -19,6 +19,41 @@ const NotificationList = () => {
     useEffect(() => {
       setNotifcounting(0)
 
+      fetch('http://localhost:3003/notifying/allnotification',{
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization":"Bearer "+localStorage.getItem('jwt')
+          },
+      }).then(res=>res.json()).then(result=>{
+        setNotification(result)
+
+        if(!result.error){
+          result.map(items=>{
+
+            if(items.notify===false){
+            fetch('http://localhost:3003/notifying/updatenotification',{
+              method:"put",
+              headers:{
+                "Content-Type":"Application/json"
+              },
+              body:JSON.stringify({
+                _id:items._id
+              })
+            }).then(res=>res.json()).then(results=>
+               {
+                console.log(result)
+
+               }
+            ).catch(error=>{
+              console.log(error)
+            })
+          }
+          })
+        }
+      })
+
+      
+
       console.log(notification)
 
     }, []);
@@ -36,12 +71,12 @@ const NotificationList = () => {
       <ul className="space-y-4">
         {notification.map((notification) => (
           <li onClick={navigating}
-            key={notification.id}
+            key={notification._id}
             className={`p-4 rounded-lg shadow-md "bg-blue-100 text-blue-800"
             `}
     >
             <div className="flex justify-between items-center">
-          <span className="font-medium">{notification.message}</span>
+          <span className="font-medium">{notification.content}</span>
                 <span className="text-sm text-gray-500">{notification.sender.fullname}</span>
             </div>
           </li>

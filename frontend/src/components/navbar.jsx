@@ -19,28 +19,35 @@ const endpoint="http://localhost:3003"
 var socket,selectedChatCompare;
 
 var checking;
+var counting=0;
+var listNotify=[]
 
 
 const Navbar = ({toggleing}) => {
 
   const {setCheckAnother,checkAnother,loged,setLoged,notification,setNotification,totalchat,setTotalchat,notifcounting,setNotifcounting} = useContext(loginContext);
 
-  
   const [noticount, setNoticount] = useState([])
+
 
 
     const navigate=useNavigate()
     const navigating=()=>{
       navigate('/login')
     }
+
+    const navigating_notifications=()=>{
+      counting=0;
+      navigate('/notifications')
+    }
       useEffect(() => {
       const token=localStorage.getItem('jwt')
+      const token2=localStorage.getItem('user')
       if(token){
         socket=io(endpoint)
-      socket.emit("setup",localStorage.getItem('user'));
+      socket.emit("setup",token2);
       socket.on("connection",()=>setsocketconnected(true))
-        setLoged(true)
-        setLoged(false)
+
         fetch('http://localhost:3003/notifying/allnotification',{
           headers:{
             'Content-Type':"application/json",
@@ -51,16 +58,43 @@ const Navbar = ({toggleing}) => {
         })
       }
 
-    }, []);
+    }, [loged]);
 
 
 
     useEffect(() => {
       checking=checkAnother;
+
+
+      const token=localStorage.getItem('jwt')
+      if(token){
+        fetch('http://localhost:3003/notifying/allnotification',{
+          headers:{
+            'Content-Type':"application/json",
+            "Authorization":"Bearer "+localStorage.getItem('jwt')
+          }
+        }).then(res=>res.json()).then(result=>{
+          console.log(result)
+          result.map(items=>{
+            if(items.notify==false){
+              console.log(items._id)
+              if (!listNotify.includes(items._id)) {
+                counting=counting+1
+
+                listNotify.push(items._id)
+              }
+            }
+          })
+        })
+      }
     }, []);
 
 
     
+
+  // useEffect(()=>{
+  //   checking=checkAnother
+  // },[notifcounting])
  
 
   useEffect(() => {
@@ -69,17 +103,20 @@ const Navbar = ({toggleing}) => {
 
     checking=checkAnother;
 
-   
-    socket.on("message received",(newMessageRecived)=>{
-      console.log(checkAnother+"----------------")
-    
-    if(checking){
-        
-        var iduser=newMessageRecived.chat.users.map(items=>items._id)
-        iduser=JSON.stringify(iduser)
-        
+  
+    const token=localStorage.getItem('jwt')
 
+      if(token){
 
+        socket.on("message received",(newMessageRecived)=>{
+          console.log(checking+" checking c")
+          
+          if(checking){
+            
+            var iduser=newMessageRecived.chat.users.map(items=>items._id)
+            iduser=JSON.stringify(iduser)
+
+            console.log(checkAnother+"----------------")
           fetch('http://localhost:3003/notifying/createNotification',{
           method: "POST",
           headers: {
@@ -92,18 +129,28 @@ const Navbar = ({toggleing}) => {
             tosend:iduser
           })
         }).then(res=>res.json()).then(result=>{
-          if(!result.error){
-            setNotifcounting(notifcounting+1)
-
-            setNotification([newMessageRecived,...notification])
-        }
-         })
-         
         
+            console.log("_____________+++++++++++++++++++++++++++++++++++++")
+            setNotifcounting(notifcounting+1)
+            fetch('http://localhost:3003/notifying/updateItnotify',{
+              method:"PUT",
+              headers:{
+                'Content-Type':"application/json",
+              },
+              body:JSON.stringify({
+                _id:result._id
+              })
+            }).then(res=>res.json()).then(result=>{
+              
+            })
+            
+        })
+        
+        }
       }
-    }
-  )
-  });
+    )
+  }
+});
 
 
 
@@ -115,6 +162,10 @@ const Navbar = ({toggleing}) => {
       setLoged(false)
     }
     }
+
+    useEffect(() => {
+      checking=checkAnother
+    }, [checkAnother]);
 
   return (
     <div className='bg-slate-300 m-0 w-[100vw] top-0 '>
@@ -130,7 +181,7 @@ const Navbar = ({toggleing}) => {
             </div>
             <div onClick={()=>navigate('/notifications')} className='flex justify-center items-center cursor-pointer'><RiMessage3Fill className="max-[640px]:text-xl"/>
             
-            <div className="max-[640px]:text-xs">{notifcounting}</div>
+            <div className="max-[640px]:text-xs">{counting+notifcounting}</div>
             </div>
             
             <div className='cursor-pointer hover:mt-2 hover:font-extrabold'>{loged?(<div onClick={logoutHandle} className='flex justify-center items-center gap-2'><IoLogOut /> <p className='max-[640px]:text-xs text-xl'>LogOut</p> </div>) :<div onClick={()=>navigating()} className='max-[640px]:text-xs flex justify-center items-center gap-1'><p className="max-[640px]:text-xs" >Login</p><LuLogIn className="max-[640px]:text-xs" /></div>}</div>

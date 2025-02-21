@@ -59,7 +59,7 @@ io.on("connection", (socket) => {
 
   socket.on("setup", (userData) => {
     socket.join(userData);
-    console.log(userData);
+    // console.log(userData);
     socket.emit("connected");
   });
 

@@ -224,11 +224,11 @@ const chatlist = () => {
     <div className="w-[100%]">
 
     <div className="flex justify-center items-center w-full">
-    <div className="p-6 max-w-md mx-auto w-[40%]">
+    <div className="p-3 max-w-md mx-auto w-[50%] ">
       <h2 className="text-2xl font-bold mb-4">Chats</h2>
       <ul className="border border-gray-500 rounded-md divide-y divide-gray-400">
         {fullChatList.map((user, index) => (
-          <li key={index} className="p-4 text-xl hover:bg-gray-300 cursor-pointer">
+          <li key={index} className="p-4 max-[640px]:text-xs text-xl max-[640px]:text-xs hover:bg-gray-300 cursor-pointer">
             <span onClick={()=>navigating(user._id)}  className="flex justify-between">
               <span className="font-semibold">{user.isgrouphchat? (<div> {user.chatname} (Grouph) </div>): (user.users.map(items=>{
                 if(items._id!=localStorage.getItem('user')){
@@ -243,7 +243,7 @@ const chatlist = () => {
     </div>
     {
       showChatbar &&
-    (<div className="w-[60%]">
+    (<div className="w-[70%] max-[640px]:text-xs">
 
       
           <div className="flex flex-col h-screen p-6 max-w-md mx-auto">
@@ -261,7 +261,7 @@ const chatlist = () => {
               </div>
               )
             }
-            <div className="items-center gap-5 flex justify-center font-bold text-xl">{chatdetailsvalue!=null && (chatdetailsvalue.chatname=="sender"?chatdetailsvalue.users.map(items=>{if(items._id!=localStorage.getItem("user")){
+            <div className="items-center gap-5 flex justify-center font-bold max-[640px]:semi-bold text-xl">{chatdetailsvalue!=null && (chatdetailsvalue.chatname=="sender"?chatdetailsvalue.users.map(items=>{if(items._id!=localStorage.getItem("user")){
       
               return items.fullname
             }}):chatdetailsvalue.chatname)}

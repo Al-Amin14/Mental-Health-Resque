@@ -9,7 +9,7 @@ const handleusers = require('../middleware/handleusers')
 
 
 routes.get('/allnotification',handleusers,(req,res)=>{
-    notification.find({tosend:{$in:req.user._id}}).sort({createdAt:-1}).then(result=>{
+    notification.find({tosend:{$in:req.user._id}}).sort({updatedAt:-1}).then(result=>{
         res.json(result)
     }).catch(error=>{
         req.json({error:"There is a problem"})
@@ -17,27 +17,75 @@ routes.get('/allnotification',handleusers,(req,res)=>{
 })
 
 
+routes.get('/allnotificationMy',handleusers,(req,res)=>{
+    notification.find({$and: [{ chat: chat }, { content: content }]}).sort({updatedAt:-1}).then(result=>{
+        res.json(result)
+    }).catch(error=>{
+        req.json({error:"There is a problem"})
+    })
+})
+
+
+routes.put('/updatenotification',(req,res)=>{
+    notification.findByIdAndUpdate(req.body._id,
+           {
+            $set: { notify: true },
+          },
+          {
+            new: true,
+          }
+    ).then(result=>{
+        res.json(result)
+    }).catch(error=>{
+        res.status(422).json(error)
+    })
+})
+
+
+routes.put('/updateItnotify',(req,res)=>{
+    notification.findById(req.body._id).then(result=>{
+        if(result && result.notify==true){
+            notification.findByIdAndUpdate(req.body._id,
+                {$set:{notify:false}},
+                {new:true}
+            ).then(result=>{
+                res.json(result)
+            }).catch(error=>{
+                res.status(422).json(error)
+            })
+        }
+    })
+})
+
+
+
+
 routes.post('/createNotification',async (req,res)=>{
 
     const {content,chat,sender,tosend}=req.body
+
     console.log(tosend)
 
     if(!content || !chat || !sender || !tosend){
         console.log("NOT WOrking..........")
         return res.json({error:"There is issue"})
     }
-    var allusers= JSON.parse(req.body.tosend);
+    var allusers=await JSON.parse(req.body.tosend);
 
 
-  notification.findOne({chat:chat}).then(result=>{
+  notification.findOne({chat:req.body.chat}).then((result)=>{
 
     if(!result){
+        console.log(result)
+        console.log("Why this happenedd------------------")
 
-        notification.create({
+         notification.create({
+
             content:content,
-        chat:chat,
+            chat:chat,
             sender:sender,
             tosend:allusers
+
         }).then(resulting=>{
             res.json(resulting)
         }).catch(error=>{
