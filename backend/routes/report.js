@@ -1,27 +1,31 @@
 const express = require('express');
-const router = express.Router();
-const Report = require('../models/Report');
-const handleusers = require('../middleware/handleusers'); 
-const User = require('../models/signUp');
+const routers = express.Router();
+const Report = require('../model/Report.js');
+const handleusers = require('../middleware/handleusers.js'); 
+const User = require('../model/signUp.js');
+const mongoose=require('mongoose')
 
-router.post('/submitReport', handleusers, async (req, res) => {
+
+
+
+routers.post('/submitReport', handleusers, async (req, res) => {
     try {
         const { condition } = req.body;
         if (!condition) {
             return res.status(400).json({ error: "Condition is required" });
         }
-
+        
         const user = await User.findById(req.user._id);
         if (!user) {
             return res.status(404).json({ error: "User not found" });
         }
-
+        
         const newReport = new Report({
             user: req.user._id,
             username: user.fullname,
             condition
         });
-
+        
         await newReport.save();
         res.status(201).json({ success: "Report submitted successfully" });
     } catch (error) {
@@ -29,14 +33,23 @@ router.post('/submitReport', handleusers, async (req, res) => {
     }
 });
 
-router.get('/myReports', handleusers, async (req, res) => {
+routers.get('/myReports', handleusers ,async (req,res)=>{
     try {
-        const reports = await Report.find({ user: req.user._id }).sort({ createdAt: -1 });
+        const reports = await Report.find({ user: req.user._id }).sort({ createdAt: -1 })
         res.json(reports);
     } catch (error) {
-        res.status(500).json({ error: "Internal Server Error" });
+        console.log(error)
+        res.status(422).json({ error: "Internal Server Error" });
     }
-});
+})
 
-module.exports = router;
+routers.get('/totalreports',(req,res)=>{
+    Report.find().then(result=>
+        res.json(result)
+    ).catch(error=>{
+        res.status(422).json({error:error})
+    })
+})
+
+module.exports = routers;
 
