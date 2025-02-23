@@ -1,0 +1,152 @@
+.container {
+    width: 100%; 
+    max-width: 500px; 
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .form-container h2 {
+    font-size: 2.5rem;
+    color: #388e3c;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .input-group {
+    margin-bottom: 25px;
+  }
+  
+  .input-group label {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: 600;
+  }
+  
+  .input-group input,
+  .input-group select {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    border: 2px solid #b2f5bc;
+    border-radius: 8px;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .input-group input:focus,
+  .input-group select:focus {
+    border-color: #388e3c;
+    box-shadow: 0 0 10px rgba(56, 142, 60, 0.3);
+  }
+  
+  .input-group input::placeholder {
+    color: #b0bec5;
+  }
+  
+  .error {
+    color: #f44336;
+    font-size: 0.875rem;
+    margin-top: 5px;
+  }
+  
+  .submit-button {
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    background-color: #66bb6a;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-sizing: border-box;
+  }
+  
+  .submit-button:hover {
+    background-color: #4caf50;
+    transform: scale(1.05);
+  }
+  
+  .submit-button:active {
+    background-color: #388e3c;
+  }
+  
+  .login-link {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .login-link-text {
+    color: #388e3c;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .login-link-text:hover {
+    color: #66bb6a;
+    text-decoration: underline;
+  }
+  @media (max-width: 600px) {
+    .container {
+      padding: 20px;
+      max-width: 100%;
+    }
+  
+    .form-container h2 {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+    }
+  
+    .input-group input,
+    .input-group select {
+      padding: 12px;
+      font-size: 14px;
+    }
+  
+    .submit-button {
+      font-size: 16px;
+      padding: 12px;
+    }
+  
+    .login-link {
+      margin-top: 15px;
+    }
+  
+    .error {
+      font-size: 0.75rem;
+    }
+  }
+  
+  @media (max-width: 900px) {
+    .container {
+      padding: 30px;
+      max-width: 80%;
+    }
+  
+    .form-container h2 {
+      font-size: 2rem;
+      margin-bottom: 18px;
+    }
+  
+    .input-group input,
+    .input-group select {
+      padding: 13px;
+      font-size: 15px;
+    }
+  
+    .submit-button {
+      font-size: 17px;
+      padding: 14px;
+    }
+  }
