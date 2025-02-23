@@ -9,25 +9,21 @@ const chat = () => {
   const {tochatlist,setTochatlist,setCheckAnother}=useContext(loginContext)
   const [chatlist, setChatlist] = useState(false);
 
-
   return (
-    <div>
-      <div className='w-full h-[40%] bg-black'>
-
-      <ChatNavbar chatlist={chatlist} setChatlist={setChatlist}  />
+    <div className="w-full min-h-screen flex flex-col">
+      <div className='w-full h-[40vh] bg-black'>
+        <ChatNavbar chatlist={chatlist} setChatlist={setChatlist}  />
       </div>
 
-      { tochatlist!=true &&
-        <div className='h-screen'>
-        <Chathome setChatlist={setChatlist}/>
-      </div>}
+      { !tochatlist &&
+        <div className='flex-grow flex justify-center items-center p-4'>
+          <Chathome setChatlist={setChatlist}/>
+        </div>}
       
       { tochatlist &&
-        <div >
-          <Chatlist Chatlist={Chatlist}  setChatlist={setChatlist}/>
-      </div>}
-
-      
+        <div className='flex-grow flex justify-center items-center p-4'>
+          <Chatlist Chatlist={Chatlist} setChatlist={setChatlist}/>
+        </div>}
     </div>
   )
 }
