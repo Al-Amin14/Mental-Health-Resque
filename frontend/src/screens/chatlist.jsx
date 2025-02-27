@@ -7,9 +7,9 @@ import io from 'socket.io-client'
 
 
 
-const endpoint="http://localhost:3003"
-var socket,selectedChatCompare;
+
 var value
+var selectedChatCompare;
 
 
 const chatlist = () => {
@@ -23,7 +23,7 @@ const chatlist = () => {
     const [input, setInput] = useState("");
     const [socketconnected, setsocketconnected] = useState(false);
 
-    const {chatiduser, setChatiduser,setCheckAnother}=useContext(loginContext)
+    const {socket, setSocket,ioresult, setIoresult,chatiduser, setChatiduser,setCheckAnother}=useContext(loginContext)
 
 
     useEffect(() => {
@@ -31,7 +31,6 @@ const chatlist = () => {
         const token = localStorage.getItem('jwt')
         if(token){
           setCheckAnother(false)
-          socket=io(endpoint)
       socket.emit("setup",localStorage.getItem('user'));
       socket.on("connection",()=>setsocketconnected(true))
 
@@ -86,6 +85,8 @@ const chatlist = () => {
         }
     }
 
+    
+
   
 
     
@@ -129,13 +130,15 @@ const chatlist = () => {
         value = chatiduser
     },[ chatiduser])
 
-     
-    
+
+    useEffect(() => {
+      console.log("printing.....")
+    },[notifcounting]);
+
       useEffect(() => {
     
         setTotalchat(totalchat)
     
-       
         socket.on("message received",(newMessageRecived)=>{
         
         if(value != newMessageRecived.chat._id  ){
@@ -143,7 +146,8 @@ const chatlist = () => {
             var iduser=newMessageRecived.chat.users.map(items=>items._id)
             iduser=JSON.stringify(iduser)
             
-    
+            
+            setNotifcounting(notifcounting+1)
               fetch('http://localhost:3003/notifying/createNotification',{
               method: "POST",
               headers: {
@@ -157,7 +161,6 @@ const chatlist = () => {
               })
             }).then(res=>res.json()).then(result=>{
               if(!result.error){
-                setNotifcounting(notifcounting+1)
 
                 setNotification([newMessageRecived,...notification])
             }
@@ -171,7 +174,7 @@ const chatlist = () => {
           }
         }
       )
-      });
+      },[socket]);
     
     
         const logoutHandle=()=>{
@@ -182,15 +185,8 @@ const chatlist = () => {
         }
         }
 
-
-    
-
-    
-
  
     const sendMessage=()=>{
-
-        
 
         console.log(value)
 
@@ -213,6 +209,7 @@ const chatlist = () => {
               }else{
                 console.log(result)
               }
+              setIoresult(result)
               socket.emit("new message",result)
         })
     }

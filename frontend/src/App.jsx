@@ -17,6 +17,10 @@ import { ToastContainer } from 'react-toastify'
 import { loginContext } from './contex/logincontext';
 import NotificationList from './components/notification';
 
+import io from 'socket.io-client'
+
+const endpoint="http://localhost:3003"
+
 
 function App() {
 
@@ -31,16 +35,25 @@ function App() {
   const [notifcounting,setNotifcounting]=useState(0)
   const [chatiduser, setChatiduser] = useState("");
   const [checkAnother, setCheckAnother] = useState(true);
-
+  const [ioresult, setIoresult] = useState("");
+  const [socket, setSocket] = useState(null);
  
   useEffect(() => {
 
     const token=localStorage.getItem('jwt')
       if(token){
+        setSocket(io(endpoint))
         setLoged(true)
       }
+      
+    }, []);
     
-  }, []);
+  useEffect(() => {
+      const token=localStorage.getItem('jwt')
+    if(token){
+        socket?.emit("setup",localStorage.getItem('user'));
+    }
+  }, [socket]);
 
   
 
@@ -58,9 +71,9 @@ function App() {
     <BrowserRouter>
       <div>
 
-        <loginContext.Provider value={{checkAnother,setCheckAnother,notifcounting,setNotifcounting,loged,setLoged,totalchat,setTotalchat,tochatlist,setTochatlist,vlogshome,setVlogshome,vlogpost,setVlogpost,myposts,setMyposts,notification,setNotification,chatiduser, setChatiduser}} >
+        <loginContext.Provider value={{socket, setSocket,ioresult, setIoresult,checkAnother,setCheckAnother,notifcounting,setNotifcounting,loged,setLoged,totalchat,setTotalchat,tochatlist,setTochatlist,vlogshome,setVlogshome,vlogpost,setVlogpost,myposts,setMyposts,notification,setNotification,chatiduser, setChatiduser}} >
 
-        <Navbar toggleing={toggleing} />
+        <Navbar toggleing={toggleing} socket={socket} />
         <div className='flex w-[100%] h-auto'>
           {
             slideShow &&

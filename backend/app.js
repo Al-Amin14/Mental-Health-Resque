@@ -67,7 +67,7 @@ io.on("connection", (socket) => {
     socket.join(room);
     console.log("User joined room : " + room);
   });
-
+ 
   socket.on("new message", (newMessageRecived) => {
     var chat = newMessageRecived.chat;
     
@@ -78,6 +78,7 @@ io.on("connection", (socket) => {
       
       console.log(user._id)
       socket.in(user._id).emit("message received", newMessageRecived);
+      
     });
   });
 });

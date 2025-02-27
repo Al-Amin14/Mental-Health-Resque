@@ -18,7 +18,6 @@ const NotificationList = () => {
   const navigate=useNavigate()
     useEffect(() => {
       setNotifcounting(0)
-
       fetch('http://localhost:3003/notifying/allnotification',{
         headers: {
             "Content-Type": "application/json",
@@ -27,29 +26,27 @@ const NotificationList = () => {
       }).then(res=>res.json()).then(result=>{
         setNotification(result)
 
-        if(!result.error){
-          result.map(items=>{
+        // if(!result.error){
+        //   result.map(items=>{
+        //       console.log("_____Not working______")
+        //     fetch('http://localhost:3003/notifying/updatenotification',{
+        //       method:"put",
+        //       headers:{
+        //         "Content-Type":"Application/json"
+        //       },
+        //       body:JSON.stringify({
+        //         _id:items._id
+        //       })
+        //     }).then(res=>res.json()).then(results=>{
 
-            if(items.notify===false){
-            fetch('http://localhost:3003/notifying/updatenotification',{
-              method:"put",
-              headers:{
-                "Content-Type":"Application/json"
-              },
-              body:JSON.stringify({
-                _id:items._id
-              })
-            }).then(res=>res.json()).then(results=>
-               {
-                console.log(result)
-
-               }
-            ).catch(error=>{
-              console.log(error)
-            })
-          }
-          })
-        }
+        //         console.log(result)
+              
+        //        }
+        //     ).catch(error=>{
+        //       console.log(error)
+        //     })
+        //   })
+        // }
       })
 
       
@@ -63,6 +60,31 @@ const NotificationList = () => {
       navigate()
       navigate('/chat')
     }
+
+
+
+    setTimeout(() => {
+      console.log("_______")
+          notification.map(items=>{
+              console.log("_____Not working______")
+            fetch('http://localhost:3003/notifying/updatenotification',{
+              method:"put",
+              headers:{
+                "Content-Type":"Application/json"
+              },
+              body:JSON.stringify({
+                _id:items._id
+              })
+            }).then(res=>res.json()).then(results=>{
+
+                console.log(results)
+              
+               }
+            ).catch(error=>{
+              console.log(error)
+            })
+          })
+    }, 5000);
 
 
   return (

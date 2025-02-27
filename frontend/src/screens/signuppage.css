@@ -1,6 +1,6 @@
 .container {
     width: 100%; 
-    max-width: 500px;   
+    max-width: 500px; 
     background-color: #ffffff;
     padding: 40px;
     border-radius: 12px;
@@ -96,4 +96,57 @@
   .login-link-text:hover {
     color: #66bb6a;
     text-decoration: underline;
-  } 
+  }
+  @media (max-width: 600px) {
+    .container {
+      padding: 20px;
+      max-width: 100%;
+    }
+  
+    .form-container h2 {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+    }
+  
+    .input-group input,
+    .input-group select {
+      padding: 12px;
+      font-size: 14px;
+    }
+  
+    .submit-button {
+      font-size: 16px;
+      padding: 12px;
+    }
+  
+    .login-link {
+      margin-top: 15px;
+    }
+  
+    .error {
+      font-size: 0.75rem;
+    }
+  }
+  
+  @media (max-width: 900px) {
+    .container {
+      padding: 30px;
+      max-width: 80%;
+    }
+  
+    .form-container h2 {
+      font-size: 2rem;
+      margin-bottom: 18px;
+    }
+  
+    .input-group input,
+    .input-group select {
+      padding: 13px;
+      font-size: 15px;
+    }
+  
+    .submit-button {
+      font-size: 17px;
+      padding: 14px;
+    }
+  }

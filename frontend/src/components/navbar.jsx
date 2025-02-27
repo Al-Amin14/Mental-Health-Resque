@@ -11,21 +11,19 @@ import { LuLogIn } from "react-icons/lu";
 import {useNavigate} from "react-router-dom";
 import { loginContext } from '../contex/logincontext';
 // import { Link } from 'react-router-dom';
-import io from 'socket.io-client'
-
 
 
 const endpoint="http://localhost:3003"
-var socket,selectedChatCompare;
+var selectedChatCompare;
 
 var checking;
 var counting=0;
 var listNotify=[]
 
 
-const Navbar = ({toggleing}) => {
+const Navbar = ({toggleing,socket}) => {
 
-  const {setCheckAnother,checkAnother,loged,setLoged,notification,setNotification,totalchat,setTotalchat,notifcounting,setNotifcounting} = useContext(loginContext);
+  const {ioresult, setIoresult,setCheckAnother,checkAnother,loged,setLoged,notification,setNotification,totalchat,setTotalchat,notifcounting,setNotifcounting} = useContext(loginContext);
 
   const [noticount, setNoticount] = useState([])
 
@@ -44,9 +42,8 @@ const Navbar = ({toggleing}) => {
       const token=localStorage.getItem('jwt')
       const token2=localStorage.getItem('user')
       if(token){
-        socket=io(endpoint)
-      socket.emit("setup",token2);
-      socket.on("connection",()=>setsocketconnected(true))
+      // socket.emit("setup",token2);
+      // socket.on("connection",()=>setsocketconnected(true))
 
         fetch('http://localhost:3003/notifying/allnotification',{
           headers:{
@@ -64,8 +61,6 @@ const Navbar = ({toggleing}) => {
 
     useEffect(() => {
       checking=checkAnother;
-
-
       const token=localStorage.getItem('jwt')
       if(token){
         fetch('http://localhost:3003/notifying/allnotification',{
@@ -94,63 +89,69 @@ const Navbar = ({toggleing}) => {
 
   // useEffect(()=>{
   //   checking=checkAnother
-  // },[notifcounting])
+  //   console.log("________+++++...........")
+  //   console.log(notifcounting)
+  // },[ioresult])
  
 
   useEffect(() => {
-    
     setTotalchat(totalchat)
 
     checking=checkAnother;
 
-  
     const token=localStorage.getItem('jwt')
 
       if(token){
-
-        socket.on("message received",(newMessageRecived)=>{
+        
+        socket?.on("message received",(newMessageRecived)=>{
           console.log(checking+" checking c")
           
           if(checking){
             
-            var iduser=newMessageRecived.chat.users.map(items=>items._id)
-            iduser=JSON.stringify(iduser)
-
-            console.log(checkAnother+"----------------")
-          fetch('http://localhost:3003/notifying/createNotification',{
-          method: "POST",
-          headers: {
-              "Content-Type": "application/json",
-            },
-          body:JSON.stringify({
-            content:newMessageRecived.message,
-            chat:newMessageRecived.chat._id,
-            sender:newMessageRecived.sender._id,
-            tosend:iduser
-          })
-        }).then(res=>res.json()).then(result=>{
-        
-            console.log("_____________+++++++++++++++++++++++++++++++++++++")
             setNotifcounting(notifcounting+1)
-            fetch('http://localhost:3003/notifying/updateItnotify',{
-              method:"PUT",
-              headers:{
-                'Content-Type':"application/json",
-              },
-              body:JSON.stringify({
-                _id:result._id
-              })
-            }).then(res=>res.json()).then(result=>{
-              
-            })
-            
-        })
+            console.log("Kam koray na ka _______Not working.....___________"+notifcounting)
+        notifyfunc(newMessageRecived)
         
         }
       }
     )
   }
 });
+
+  const notifyfunc= async (newMessageRecived)=>{
+  
+    var iduser=newMessageRecived.chat.users.map(items=>items._id)
+    iduser=JSON.stringify(iduser)
+
+    await fetch('http://localhost:3003/notifying/createNotification',{
+      method: "POST",        
+      headers: {
+          "Content-Type": "application/json",
+        },
+      body:JSON.stringify({
+        content:newMessageRecived.message,
+        chat:newMessageRecived.chat._id,
+        sender:newMessageRecived.sender._id,
+        tosend:iduser
+      })
+    }).then(res=>res.json()).then(result=>{
+
+      console.log("Logged in............")
+        fetch('http://localhost:3003/notifying/updateItnotify',{
+          method:"PUT",
+          headers:{
+            'Content-Type':"application/json",
+          },
+          body:JSON.stringify({
+            _id:result._id
+          })
+        }).then(res=>res.json()).then(result=>{
+          console.log(result)
+        })
+        
+    })
+
+  }
 
 
 

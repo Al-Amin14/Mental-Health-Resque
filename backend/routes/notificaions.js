@@ -9,7 +9,7 @@ const handleusers = require('../middleware/handleusers')
 
 
 routes.get('/allnotification',handleusers,(req,res)=>{
-    notification.find({tosend:{$in:req.user._id}}).sort({updatedAt:-1}).then(result=>{
+    notification.find({tosend:{$in:req.user._id}}).populate("sender","-password").sort({updatedAt:-1}).then(result=>{
         res.json(result)
     }).catch(error=>{
         req.json({error:"There is a problem"})
@@ -18,7 +18,7 @@ routes.get('/allnotification',handleusers,(req,res)=>{
 
 
 routes.get('/allnotificationMy',handleusers,(req,res)=>{
-    notification.find({$and: [{ chat: chat }, { content: content }]}).sort({updatedAt:-1}).then(result=>{
+    notification.find({$and: [{ chat: chat }, { content: content }]}).populate("sender","-password").sort({updatedAt:-1}).then(result=>{
         res.json(result)
     }).catch(error=>{
         req.json({error:"There is a problem"})
@@ -63,7 +63,7 @@ routes.put('/updateItnotify',(req,res)=>{
 routes.post('/createNotification',async (req,res)=>{
 
     const {content,chat,sender,tosend}=req.body
-
+    
     console.log(tosend)
 
     if(!content || !chat || !sender || !tosend){
@@ -71,16 +71,15 @@ routes.post('/createNotification',async (req,res)=>{
         return res.json({error:"There is issue"})
     }
     var allusers=await JSON.parse(req.body.tosend);
-
-
+    
+    
   notification.findOne({chat:req.body.chat}).then((result)=>{
-
+    
     if(!result){
         console.log(result)
         console.log("Why this happenedd------------------")
-
+        
          notification.create({
-
             content:content,
             chat:chat,
             sender:sender,
@@ -99,19 +98,19 @@ routes.post('/createNotification',async (req,res)=>{
 
         notification.find({
             $and: [{ chat: chat }, { content: content }]
-          }).then(resultfind=>{
-
-            
+        }).then(resultfind=>{
             if(resultfind.length==0){
+                
                 notification.findByIdAndUpdate(
                     result._id,
                     {
-                      $set: { content:content },
+                        $set: { content:content },
                     },
                     {
-                      new: true,
+                        new: true,
                     }
-                  ).then(result=>{
+                ).then(result=>{
+                    console.log(`Result 1 have been found ${resultfind}`)
                     res.json(result)
                 }).catch(error=>{
                     console.log(error)
@@ -119,8 +118,8 @@ routes.post('/createNotification',async (req,res)=>{
                 })
 
             }else{
-                console.log(result)
-                res.json(result)
+                console.log(" ____is______ "+resultfind)
+                res.json(resultfind)
             }
         }).catch(error=>{
     console.log(error)
@@ -128,7 +127,7 @@ routes.post('/createNotification',async (req,res)=>{
             res.json({error:"There is a problem4"
             })
         })
-       }
+    }
 
   }).catch(error=>{
     console.log(error)
