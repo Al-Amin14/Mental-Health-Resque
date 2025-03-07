@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 
 const PostTextUI = () => {
+    const navigate=useNavigate()
     const [text, setText] = useState('');
 
     const handleChange = (event) => {
@@ -14,7 +16,6 @@ const PostTextUI = () => {
         // You can handle the text submission here
         if (text.length >= 5) {
             fetch('http://localhost:3003/vlogs/blogspost', {
-
                 method: "POST",
                 headers: {
                     'Content-Type':"application/json",
@@ -29,7 +30,11 @@ const PostTextUI = () => {
                     toast.success("Posted Successfully")
                     setText('')
                 } else {
-                    toast.error(result.error)
+                    if(result.error=="logout"){
+                        localStorage.clear()
+                        navigate('/')
+                        toast.error("There is a problem . Try to LogIn")
+                    }
                 }
             })
         }

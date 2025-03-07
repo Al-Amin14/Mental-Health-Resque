@@ -10,6 +10,7 @@ import io from 'socket.io-client'
 
 var value
 var selectedChatCompare;
+var stormsg;
 
 
 const chatlist = () => {
@@ -21,6 +22,7 @@ const chatlist = () => {
     const [chatdetailsvalue, setChatdetailsvalue] = useState([]);
     const [totalchat, setTotalchat] = useState([]);
     const [input, setInput] = useState("");
+    const [allchathere, setAllchathere] = useState([]);
     const [socketconnected, setsocketconnected] = useState(false);
 
     const {socket, setSocket,ioresult, setIoresult,chatiduser, setChatiduser,setCheckAnother}=useContext(loginContext)
@@ -116,6 +118,7 @@ const chatlist = () => {
 
                     }).then(res=>res.json()).then(result=>{
                       if(!result.error){
+                        stormsg=result
                         setTotalchat(result)
                       }
                       socket.emit("join chat",chatiduser)
@@ -140,7 +143,7 @@ const chatlist = () => {
         setTotalchat(totalchat)
     
         socket.on("message received",(newMessageRecived)=>{
-        
+      
         if(value != newMessageRecived.chat._id  ){
             
             var iduser=newMessageRecived.chat.users.map(items=>items._id)
@@ -166,10 +169,14 @@ const chatlist = () => {
             }
              })
              
-            
           }else{
             if(value === newMessageRecived.chat._id){
-              setTotalchat([...totalchat,newMessageRecived])
+              stormsg.push(newMessageRecived)
+              setTotalchat(stormsg.map((items)=>{
+                return items
+              }))
+              // setTotalchat([...totalchat,newMessageRecived])
+              // setTotalchat([...totalchat,newMessageRecived])
             }
           }
         }
@@ -201,7 +208,7 @@ const chatlist = () => {
                 chatid:chatiduser
             })
         }).then(res=>res.json()).then(result=>{
-           
+            
               if(!result.error){
                 setInput("")
                 setTotalchat([...totalchat,result])

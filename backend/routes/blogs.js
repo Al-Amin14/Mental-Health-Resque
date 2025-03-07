@@ -9,18 +9,22 @@ const routes=express.Router()
 
 routes.post('/blogspost',handleusers, (req,res)=>{
     
-    bloging.findOne({vlogcontent:req.body.content}).then((result)=>{
-        if(!result){
-           bloging.create({ vlogcontent: req.body.content, user: req.user._id }).then(resulting=>{
-            res.json(resulting)
-           })
-        }else{
-            res.json({error:"Post Already Created"})
-        }
-    }).catch(error=>{
-        res.status(422).json({error:"There is server issue"})
-    })
+    try{
 
+        bloging.findOne({vlogcontent:req.body.content}).then((result)=>{
+            if(!result){
+                bloging.create({ vlogcontent: req.body.content, user: req.user._id }).then(resulting=>{
+                    res.json(resulting)
+                })
+            }else{
+                res.json({error:"Post Already Created"})
+            }
+        }).catch(error=>{
+            res.status(422).json({error:"There is server issue"})
+        })   
+    }catch(error){
+        res.json({error:"logout"})
+    }
 
 })
 

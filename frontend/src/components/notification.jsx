@@ -26,27 +26,27 @@ const NotificationList = () => {
       }).then(res=>res.json()).then(result=>{
         setNotification(result)
 
-        // if(!result.error){
-        //   result.map(items=>{
-        //       console.log("_____Not working______")
-        //     fetch('http://localhost:3003/notifying/updatenotification',{
-        //       method:"put",
-        //       headers:{
-        //         "Content-Type":"Application/json"
-        //       },
-        //       body:JSON.stringify({
-        //         _id:items._id
-        //       })
-        //     }).then(res=>res.json()).then(results=>{
+        if(!result.error){
+          result.map(items=>{
+              console.log("_____Not working______")
+            fetch('http://localhost:3003/notifying/updatenotification',{
+              method:"put",
+              headers:{
+                "Content-Type":"Application/json"
+              },
+              body:JSON.stringify({
+                _id:items._id
+              })
+            }).then(res=>res.json()).then(results=>{
 
-        //         console.log(result)
+                console.log(result)
               
-        //        }
-        //     ).catch(error=>{
-        //       console.log(error)
-        //     })
-        //   })
-        // }
+               }
+            ).catch(error=>{
+              console.log(error)
+            })
+          })
+        }
       })
 
       

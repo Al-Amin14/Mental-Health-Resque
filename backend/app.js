@@ -16,6 +16,7 @@ const vlogscontent = require("./routes/blogs.js");
 const cors = require("cors");
 const messagesroute = require("./routes/messagesapis.js");
 const notification=require("./routes/notificaions.js")
+const users=require("./model/signUp.js")
 
 mongoose.connect(process.env.Mongo_Url);
 mongoose.connection.on("connected", () => {
@@ -67,7 +68,7 @@ io.on("connection", (socket) => {
     socket.join(room);
     console.log("User joined room : " + room);
   });
- 
+
   socket.on("new message", (newMessageRecived) => {
     var chat = newMessageRecived.chat;
     
@@ -78,7 +79,29 @@ io.on("connection", (socket) => {
       
       console.log(user._id)
       socket.in(user._id).emit("message received", newMessageRecived);
-      
     });
   });
+
+  
+  socket.on("notifications", (notifications) => {
+    return io.emit("report found", notifications);
+    // var alluserss=notifications;
+    // console.log(alluserss)
+    // alluserss.forEach((items)=>{
+    //   socket.in(items._id).emit("report found", notifications);
+    // })
+  //   users.find().then(result=>{
+  //     result.map((items) => {
+  //       if (items._id == notifications.user){
+  //         console.log("Here is an "+items._id.toString())
+  //         return;}
+          
+  //         console.log(items._id.toString())
+  //         return socket.in(items._id.toString()).emit("report found", notifications);
+  //   });
+  //   })
+  });
+
+  
+
 });

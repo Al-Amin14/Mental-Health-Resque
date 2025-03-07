@@ -23,7 +23,7 @@ var listNotify=[]
 
 const Navbar = ({toggleing,socket}) => {
 
-  const {ioresult, setIoresult,setCheckAnother,checkAnother,loged,setLoged,notification,setNotification,totalchat,setTotalchat,notifcounting,setNotifcounting} = useContext(loginContext);
+  const {reportNotify,setReportNotify,ioresult, setIoresult,setCheckAnother,checkAnother,loged,setLoged,notification,setNotification,totalchat,setTotalchat,notifcounting,setNotifcounting} = useContext(loginContext);
 
   const [noticount, setNoticount] = useState([])
 
@@ -176,11 +176,11 @@ const Navbar = ({toggleing,socket}) => {
             <div className='flex justify-center items-center gap-1'><FaLeaf className='max-[640px]:w-7 w-14 h-14 text-green-900' /><p className='max-[640px]:text-[8px] font-bold text-2xl text-green-900'> Mental Well Being</p></div>
         </div>
         <div className='flex gap-7 justify-center items-center font-bold text-2xl'>
-        <div onClick={()=>navigate('/notifications')} className='flex justify-center items-center cursor-pointer'><MdReport className="max-[640px]:text-xl"/>
+        <div onClick={()=>{setReportNotify(0); navigate('/allreport')}} className='flex justify-center items-center cursor-pointer'><MdReport className="max-[640px]:text-xl"/>
             
-            <div className="max-[640px]:text-xs">0</div>
+            <div className="max-[640px]:text-xs">{reportNotify}</div>
             </div>
-            <div onClick={()=>navigate('/notifications')} className='flex justify-center items-center cursor-pointer'><RiMessage3Fill className="max-[640px]:text-xl"/>
+            <div onClick={()=>{counting=0; navigate('/notifications')}} className='flex justify-center items-center cursor-pointer'><RiMessage3Fill className="max-[640px]:text-xl"/>
             
             <div className="max-[640px]:text-xs">{counting+notifcounting}</div>
             </div>

@@ -4,6 +4,7 @@ const users=require('../model/signUp')
 const chats=require('../model/chated')
 const Message=require('../model/message')
 const handleusers = require('../middleware/handleusers')
+const  {getReceiverId}  = require('../app')
 
 
 routes.post ('/sendmessage',handleusers,async (req,res)=>{
@@ -33,8 +34,11 @@ routes.post ('/sendmessage',handleusers,async (req,res)=>{
             latestmessage:messages
         })
 
+        // const receiverSocktid=getReceiverId(chatid);
+        // if(receiverSocktid){
+        //     io.to(receiverSocktid).emit("newMessage",messages)
+        // }
 
-        
         res.json(messages)
     }catch(error){
         console.log(error)

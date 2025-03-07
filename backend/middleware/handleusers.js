@@ -12,7 +12,7 @@ function handleusers(req,res,next){
         const token=authorization.replace("Bearer ","")
         jwt.verify(token,process.env.jwt_secret,(err,payload)=>{
             if(err){
-                res.status(401).json({error:err})
+                res.status(401).json({error:"logout"})
             }else{
                 const {_id}=payload
                 users.findById(_id).then(saveUsers=>{

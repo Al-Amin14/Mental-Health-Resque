@@ -2,23 +2,41 @@ import React, { useEffect, useState,useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginContext } from "../contex/logincontext";
 
-const ReportPage = () => {
+const ReportPage = ({socket}) => {
   const [condition, setCondition] = useState("");
   const [reports, setReports] = useState([]);
+  const [newCondition, setNewCondition] = useState("");
   const navigate = useNavigate();
-  const {chatiduser, setChatiduser,setCheckAnother}=useContext(loginContext)
-
-
+  const {reportNotify,setReportNotify,chatiduser, setChatiduser,setCheckAnother}=useContext(loginContext)
+  const [socketconnected, setsocketconnected] = useState(false);
+  
   useEffect(() => {
     const token = localStorage.getItem("jwt");
     if (!token) {
       navigate("/login");
     } else {
+      socket?.emit("setup",localStorage.getItem('user'));
+      socket?.on("connection",()=>setsocketconnected(true))
       setCheckAnother(true)
       setChatiduser("")
       fetchReports(token);
     }
   }, []);
+
+  useEffect(() => {
+    
+    // const token=localStorage.getItem('jwt')
+    // if(token){
+    console.log(socket)
+      socket?.on("report found", (notification) => {
+        console.log("Hey Bro this is not calling")
+        if(notification.user!=localStorage.getItem('user')){
+        setReportNotify(reportNotify+1)
+        console.log("LKLKJ")
+      }
+      })
+    // }
+  });
 
   const fetchReports = async (token) => {
     const response = await fetch("http://localhost:3003/reports/myReports", {
@@ -31,6 +49,7 @@ const ReportPage = () => {
     const data = await response.json();
     if (response.ok) {
       setReports(data); // Store reports in state
+      
     } else {
       alert("Failed to fetch reports");
     }
@@ -54,12 +73,21 @@ const ReportPage = () => {
       if (response.ok) {
         alert(result.success);
         setCondition("");
+        console.log(result.datas)
+        setNewCondition(result.datas)
+        fetch("http://localhost:3003/usersDetails",).then(res=>res.json()).then(resultss=>{
+
+          socket?.emit("notifications",resultss)
+        })
+
         fetchReports(token); // Refresh reports after submission
       } else {
         alert(result.error);
       }
     }
   };
+
+  
 
   return (
     <div className="min-h-screen w-full bg-blue-50 flex flex-col items-center justify-center px-4">

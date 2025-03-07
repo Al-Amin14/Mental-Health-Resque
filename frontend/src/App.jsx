@@ -16,6 +16,7 @@ import ChatList from './screens/chatlist'
 import { ToastContainer } from 'react-toastify'
 import { loginContext } from './contex/logincontext';
 import NotificationList from './components/notification';
+import Allreports from './components/allreports'
 
 import io from 'socket.io-client'
 
@@ -37,6 +38,8 @@ function App() {
   const [checkAnother, setCheckAnother] = useState(true);
   const [ioresult, setIoresult] = useState("");
   const [socket, setSocket] = useState(null);
+  const [report,setreport]=useState([]);
+  const [reportNotify,setReportNotify]=useState(0)
  
   useEffect(() => {
 
@@ -71,7 +74,7 @@ function App() {
     <BrowserRouter>
       <div>
 
-        <loginContext.Provider value={{socket, setSocket,ioresult, setIoresult,checkAnother,setCheckAnother,notifcounting,setNotifcounting,loged,setLoged,totalchat,setTotalchat,tochatlist,setTochatlist,vlogshome,setVlogshome,vlogpost,setVlogpost,myposts,setMyposts,notification,setNotification,chatiduser, setChatiduser}} >
+        <loginContext.Provider value={{reportNotify,setReportNotify,report,setreport,socket, setSocket,ioresult, setIoresult,checkAnother,setCheckAnother,notifcounting,setNotifcounting,loged,setLoged,totalchat,setTotalchat,tochatlist,setTochatlist,vlogshome,setVlogshome,vlogpost,setVlogpost,myposts,setMyposts,notification,setNotification,chatiduser, setChatiduser}} >
 
         <Navbar toggleing={toggleing} socket={socket} />
         <div className='flex w-[100%] h-auto'>
@@ -86,12 +89,13 @@ function App() {
               <Route path="/Activity" element={<Activity/>} ></Route>
               <Route path="/Education" element={<Education/>} ></Route>
               <Route path="/Physchologist" element={<Physchologist/>} ></Route>
-              <Route path="/Report" element={<Report/>} ></Route>
+              <Route path="/Report" element={<Report  socket={socket} />} ></Route>
               <Route path='/login' element={<LoginPage/>}> </Route>
               <Route path='/signup' element={<SignUp/>}></Route>
               <Route path='/chat' element={<Chat/>}>  </Route>
               <Route path='/chatlist' element={<ChatList/>} ></Route>
               <Route path='/notifications' element={<NotificationList/>} ></Route>
+              <Route path='/allreport' element={<Allreports/>} ></Route>
             </Routes>
           </div>): (<div className='h-auto bg-gray-100 w-[100%] '> <Routes>
               <Route path="/" element={<Home/>} ></Route>
@@ -104,7 +108,7 @@ function App() {
               <Route path='/chat' element={<Chat/>}>  </Route>
               <Route path='/chatlist' element={<ChatList/>} ></Route>
               <Route path='/notifications' element={<NotificationList/>} ></Route>
-              
+              <Route path='/allreport' element={<Allreports/>} ></Route>
             </Routes>
           </div>)}
             

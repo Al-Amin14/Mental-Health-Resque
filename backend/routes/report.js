@@ -26,8 +26,10 @@ routers.post('/submitReport', handleusers, async (req, res) => {
             condition
         });
         
-        await newReport.save();
-        res.status(201).json({ success: "Report submitted successfully" });
+        await newReport.save().then(result=>{
+
+            res.status(201).json({ success: "Report submitted successfully" , datas: result});
+        });
     } catch (error) {
         res.status(500).json({ error: "Internal Server Error" });
     }
@@ -44,7 +46,7 @@ routers.get('/myReports', handleusers ,async (req,res)=>{
 })
 
 routers.get('/totalreports',(req,res)=>{
-    Report.find().then(result=>
+    Report.find().populate("user","-password").sort({createdAt:-1}).then(result=>
         res.json(result)
     ).catch(error=>{
         res.status(422).json({error:error})

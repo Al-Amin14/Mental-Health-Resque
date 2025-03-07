@@ -9,7 +9,7 @@ const handleusers = require('../middleware/handleusers')
 
 
 routes.get('/allnotification',handleusers,(req,res)=>{
-    notification.find({tosend:{$in:req.user._id}}).populate("sender","-password").sort({updatedAt:-1}).then(result=>{
+    notification.find({tosend:{$in:req.user._id}}).populate("sender","-password").sort({createdAt:-1}).then(result=>{
         res.json(result)
     }).catch(error=>{
         req.json({error:"There is a problem"})
@@ -18,7 +18,7 @@ routes.get('/allnotification',handleusers,(req,res)=>{
 
 
 routes.get('/allnotificationMy',handleusers,(req,res)=>{
-    notification.find({$and: [{ chat: chat }, { content: content }]}).populate("sender","-password").sort({updatedAt:-1}).then(result=>{
+    notification.find({$and: [{ chat: chat }, { content: content }]}).populate("sender","-password").sort({createdAt:-1}).then(result=>{
         res.json(result)
     }).catch(error=>{
         req.json({error:"There is a problem"})
@@ -123,7 +123,6 @@ routes.post('/createNotification',async (req,res)=>{
             }
         }).catch(error=>{
     console.log(error)
-
             res.json({error:"There is a problem4"
             })
         })
@@ -134,7 +133,6 @@ routes.post('/createNotification',async (req,res)=>{
     res.json({error:"This have to be fixed5"})
   })
 
-    
 })
 
 
