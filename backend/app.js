@@ -13,6 +13,7 @@ const checkUser = require("./routes/UserCheck.js");
 const chatapis = require("./routes/chatapis.js");
 const reporting = require("./routes/report.js");
 const vlogscontent = require("./routes/blogs.js");
+const notifyingreports = require("./routes/reports_notify.js");
 const cors = require("cors");
 const messagesroute = require("./routes/messagesapis.js");
 const notification=require("./routes/notificaions.js")
@@ -36,6 +37,7 @@ app.use("", messagesroute);
 app.use("/reports", reporting);
 app.use("/vlogs", vlogscontent);
 app.use("/notifying", notification);
+app.use("/notifyingreports", notification);
 
 app.get("/livinglife/living", (req, res) => {
   res.json(
