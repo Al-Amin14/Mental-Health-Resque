@@ -30,10 +30,9 @@ const ReportPage = ({socket}) => {
     console.log(socket)
       socket?.on("report found", (notification) => {
         console.log("Hey Bro this is not calling")
-        if(notification.user!=localStorage.getItem('user')){
+        // if(notification.user!=localStorage.getItem('user')){
         setReportNotify(reportNotify+1)
-        console.log("LKLKJ")
-      }
+      // }
       })
     // }
   });
